@@ -1,0 +1,292 @@
+{
+    "teams": [
+        {
+            "teamName" : "Carolina Hurricanes",
+            "id" :  11,
+            "image" : "https://a.espncdn.com/i/teamlogos/nhl/500/car.png",
+            "colors" : {
+                "primary" : "#cc0000",
+                "secondary" : "#000000"
+                }
+            },
+        {
+            "teamName" : "Chicago Blackhawks",
+            "id" :  16,
+            "image" : "https://a.espncdn.com/i/teamlogos/nhl/500/chi.png",
+            "colors" : {
+                "primary" : "#CF0A2C",
+                "secondary" : "#FF671B"
+                }
+            },
+        {
+            "teamName" : "Columbus Blue Jackets",
+            "id" :  29,
+            "image" : "https://a.espncdn.com/i/teamlogos/nhl/500/cbj.png",
+            "colors" : {
+                "primary" : "#002654",
+                "secondary" : "#ce1126"
+                }
+            },
+        {
+            "teamName" : "Dallas Stars",
+            "id" :  25,
+            "image" : "https://a.espncdn.com/i/teamlogos/nhl/500/dal.png",
+            "colors" : {
+                "primary" : "#006847",
+                "secondary" : "#8F8F8C"
+                }
+            },
+        {
+            "teamName" : "Detroit Red Wings",
+            "id" :  17,
+            "image" : "https://a.espncdn.com/i/teamlogos/nhl/500/det.png",
+            "colors" : {
+                "primary" : "#ce1126",
+                "secondary" : "#FFFFFF"
+                }
+            },
+        {
+            "teamName" : "Florida Panthers",
+            "id" :  13,
+            "image" : "https://a.espncdn.com/i/teamlogos/nhl/500/fla.png",
+            "colors" : {
+                "primary" : "#041E42",
+                "secondary" : "#c8102E"
+                }
+            },
+        {
+            "teamName" : "Nashville Predators",
+            "id" :  18,
+            "image" : "https://a.espncdn.com/i/teamlogos/nhl/500/nsh.png",
+            "colors" : {
+                "primary" : "#FFB81C",
+                "secondary" : "#041E42"
+                }
+            },
+        {
+            "teamName" : "Tampa Bay Lightning",
+            "id" :  14,
+            "image" : "https://a.espncdn.com/i/teamlogos/nhl/500/tb.png",
+            "colors" : {
+                "primary" : "#002868",
+                "secondary" : "#FFFFFF"
+                }
+            },
+        {
+            "teamName" : "Boston Bruins",
+            "id" :  6,
+            "image" : "https://a.espncdn.com/i/teamlogos/nhl/500/bos.png",
+            "colors" : {
+                "primary" : "#FFB81C",
+                "secondary" : "#000000"
+                }
+            },
+        {
+            "teamName" : "Buffalo Sabres",
+            "id" :  7,
+            "image" : "https://a.espncdn.com/i/teamlogos/nhl/500/buf.png",
+            "colors" : {
+                "primary" : "#002654",
+                "secondary" : "#FCB514"
+                }
+            },
+        {
+            "teamName" : "New Jersey Devils",
+            "id" :  1,
+            "image" : "https://a.espncdn.com/i/teamlogos/nhl/500/nj.png",
+            "colors" : {
+                "primary" : "#CE1126",
+                "secondary" : "#000000"
+                }
+            },
+        {
+            "teamName" : "New York Islanders",
+            "id" :  2,
+            "image" : "https://a.espncdn.com/i/teamlogos/nhl/500/nyi.png",
+            "colors" : {
+                "primary" : "#00539b",
+                "secondary" : "#f47d30"
+                }
+            },
+        {
+            "teamName" : "New York Rangers",
+            "id" :  3,
+            "image" : "https://a.espncdn.com/i/teamlogos/nhl/500/nyr.png",
+            "colors" : {
+                "primary" : "#0038A8",
+                "secondary" : "#CE1126"
+                }
+            },
+        {
+            "teamName" : "Philadelphia Flyers",
+            "id" :  4,
+            "image" : "https://a.espncdn.com/i/teamlogos/nhl/500/phi.png",
+            "colors" : {
+                "primary" : "#F74902",
+                "secondary" : "#000000"
+                }
+            },
+        {
+            "teamName" : "Pittsburgh Penguins",
+            "id" :  5,
+            "image" : "https://a.espncdn.com/i/teamlogos/nhl/500/pit.png",
+            "colors" : {
+                "primary" : "#000000",
+                "secondary" : "#CFC493"
+                }
+            },
+        {
+            "teamName" : "Washington Capitals",
+            "id" :  15,
+            "image" : "https://a.espncdn.com/i/teamlogos/nhl/500/wsh.png",
+            "colors" : {
+                "primary" : "#041E42",
+                "secondary" : "#C8102E"
+                }
+            },
+        {
+            "teamName" : "Calgary Flames",
+            "id" :  20,
+            "image" : "https://a.espncdn.com/i/teamlogos/nhl/500/cgy.png",
+            "colors" : {
+                "primary" : "#c8102E",
+                "secondary" : "#F1BE48"
+                }
+            },
+        {
+            "teamName" : "Edmonton Oilers",
+            "id" :  22,
+            "image" : "https://a.espncdn.com/i/teamlogos/nhl/500/edm.png",
+            "colors" : {
+                "primary" : "#041E42",
+                "secondary" : "#FF4C00"
+                }
+            },
+        {
+            "teamName" : "Montreal Canadiens",
+            "id" :  8,
+            "image" : "https://a.espncdn.com/i/teamlogos/nhl/500/mtl.png",
+            "colors" : {
+                "primary" : "#AF1E2D",
+                "secondary" : "#192168"
+                }
+            },
+        {
+            "teamName" : "Ottawa Senators",
+            "id" :  9,
+            "image" : "https://a.espncdn.com/i/teamlogos/nhl/500/ott.png",
+            "colors" : {
+                "primary" : "#c52032",
+                "secondary" : "#C2912C"
+                }
+            },
+        {
+            "teamName" : "Toronto Maple Leafs",
+            "id" :  10,
+            "image" : "https://a.espncdn.com/i/teamlogos/nhl/500/tor.png",
+            "colors" : {
+                "primary" : "#00205b",
+                "secondary" : "#FFFFFF"
+                }
+            },
+        {
+            "teamName" : "Vancouver Canucks",
+            "id" :  23,
+            "image" : "https://a.espncdn.com/i/teamlogos/nhl/500/van.png",
+            "colors" : {
+                "primary" : "#00205B",
+                "secondary" : "#00843d"
+                }
+            },
+        {
+            "teamName" : "Winnipeg Jets",
+            "id" :  52,
+            "image" : "https://a.espncdn.com/i/teamlogos/nhl/500/wpg.png",
+            "colors" : {
+                "primary" : "#041E42",
+                "secondary" : "#004C97"
+                }
+            },
+        {
+            "teamName" : "Anaheim Ducks",
+            "id" :  24,
+            "image" : "https://a.espncdn.com/i/teamlogos/nhl/500/ana.png",
+            "colors" : {
+                "primary" : "#F47A38",
+                "secondary" : "#B9975B"
+                }
+            },
+        {
+            "teamName" : "Arizona Coyotes",
+            "id" :  53,
+            "image" : "https://a.espncdn.com/i/teamlogos/nhl/500/ari.png",
+            "colors" : {
+                "primary" : "#8C2633",
+                "secondary" : "#e2d6b5"
+                }
+            },
+        {
+            "teamName" : "Colorado Avalanche",
+            "id" :  21,
+            "image" : "https://a.espncdn.com/i/teamlogos/nhl/500/col.png",
+            "colors" : {
+                "primary" : "#6F263D",
+                "secondary" : "#236192"
+                }
+            },
+        {
+            "teamName" : "Los Angeles Kings",
+            "id" :  26,
+            "image" : "https://a.espncdn.com/i/teamlogos/nhl/500/lak.png",
+            "colors" : {
+                "primary" : "#111111",
+                "secondary" : "#A2AAAD"
+                }
+            },
+        {
+            "teamName" : "Minnesota Wild",
+            "id" :  30,
+            "image" : "https://a.espncdn.com/i/teamlogos/nhl/500/min.png",
+            "colors" : {
+                "primary" : "#A6192E",
+                "secondary" : "#154734"
+                }
+            },
+        {
+            "teamName" : "San Jose Sharks",
+            "id" :  28,
+            "image" : "https://a.espncdn.com/i/teamlogos/nhl/500/sjs.png",
+            "colors" : {
+                "primary" : "#006D75",
+                "secondary" : "#EA7200"
+                }
+            },
+        {
+            "teamName" : "St. Louis Blues",
+            "id" :  19,
+            "image" : "https://a.espncdn.com/i/teamlogos/nhl/500/stl.png",
+            "colors" : {
+                "primary" : "#002F87",
+                "secondary" : "#FCB514"
+                }
+            },
+        {
+            "teamName" : "Vegas Golden Knights",
+            "id" :  54,
+            "image" : "https://a.espncdn.com/i/teamlogos/nhl/500/veg.png",
+            "colors" : {
+                "primary" : "#B4975A",
+                "secondary" : "#333f42"
+                }
+            },
+        {
+            "teamName" : "Seattle Kraken",
+            "id" :  55,
+            "image" : "https://a.espncdn.com/i/teamlogos/nhl/500/sea.png",
+            "colors" : {
+                "primary" : "#001628",
+                "secondary" : "#99D9D9"
+                }
+            }
+    ]
+}
