@@ -2,21 +2,22 @@
 @media (prefers-color-scheme: dark){
     body {background: #333; color: #fff; }
     .team-card{background:rgb(110, 110, 110)}
+    .player-card{}
 }
 @media (prefers-color-scheme: light){
     body {background: rgb(220, 220, 220); color: black ;}
     .team-card{background:rgb(237, 237, 237)}
+    .player-card{}
 }
 /* --------------styles for site header-------------- */
 #site-head{
-    position: absolute;
     display: flex;
-    justify-content: right;
+    justify-content: left;
     flex-wrap: wrap;
 }
 button{
-    height: 20px;
-    display: block;
+    height: 30px;
+    display: none;
 
 }
 
@@ -28,19 +29,19 @@ button{
     flex-wrap: wrap;
 }
 .team-card {
-  border: solid;
-  border-radius: 6px;
-  padding: 30px;
-  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.4);
-  transition: box-shadow 0.3s;
-  margin: 15px;
-  float: left;
-  text-align: center;
-  width: 150px;
-  height: 150px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    border: solid;
+    border-radius: 6px;
+    padding: 30px;
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.4);
+    transition: box-shadow 0.3s;
+    margin: 15px;
+    float: left;
+    text-align: center;
+    width: 150px;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .team-card:hover {
     box-shadow: 0 12px 24px 0 rgba(0, 0, 0, 0.685);
