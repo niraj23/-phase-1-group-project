@@ -63,9 +63,26 @@ flex-wrap: wrap;
 }
 
 .card-image {
+<<<<<<< HEAD
 max-width: 150%;
 max-height: 150%;
 position: center; 
+=======
+max-width: 100%;
+max-height: 100%;
+position: center;
+}
+
+.sports-card {
+border: solid;
+padding: 20px;
+transition: 0.3s;
+margin: 30px;
+float: left;
+text-align: center;
+width: 150px;
+height: 275px;
+>>>>>>> 18b982ef1c33c828f22d343e435feba0556ebfe0
 }
 
 label {
@@ -86,6 +103,7 @@ background-color: red;
 }
 
 .sports-card-inner {
+<<<<<<< HEAD
     border: solid;
     transition: 0.3s;
     margin: 30px;
@@ -93,6 +111,10 @@ background-color: red;
     text-align: center;
     width: 250px;
     height: 425px;
+=======
+    width: 150px;
+    height: 275px;
+>>>>>>> 18b982ef1c33c828f22d343e435feba0556ebfe0
     transition: transform 1s;
     transform-style: preserve-3d;
     cursor: pointer;
@@ -106,8 +128,13 @@ background-color: red;
 
   .card__face {
     position: absolute;
+<<<<<<< HEAD
     width: 250px;
     height: 425px;
+=======
+    width: auto;
+    height: 275px;
+>>>>>>> 18b982ef1c33c828f22d343e435feba0556ebfe0
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     overflow: hidden;
@@ -117,7 +144,7 @@ background-color: red;
   
   .card__face--front {
     background-image: linear-gradient(to bottom right, var(--primary), var(--secondary));
-    display: flex;
+    /* display: flex; */
     align-items: center;
     justify-content: center;
     perspective: 1000px;

@@ -71,7 +71,12 @@ const makeTeamTiles = teamObj => {
             cardFront.append(cardImage, cardName, likeBttn);
             cardBack.append(backInfo);
             cardInner.append(cardFront, cardBack);
+<<<<<<< HEAD
             playerContainer.appendChild(cardInner);
+=======
+            card.appendChild(cardInner);
+            playerContainer.appendChild(card);
+>>>>>>> 18b982ef1c33c828f22d343e435feba0556ebfe0
         
     
     cardInner.addEventListener("click", function () {
