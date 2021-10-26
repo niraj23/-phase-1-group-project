@@ -16,7 +16,19 @@
   background: rgb(237, 237, 237);
   }
   }
-  
+
+  /* --------------styles for site header-------------- */
+#site-head{
+  position: absolute;
+  display: flex;
+  justify-content: right;
+  flex-wrap: wrap;
+}
+button{
+  height: 20px;
+  display: block;
+
+}
   /* --------------styles for teams-------------- */
   #team-container {
   position: absolute;
@@ -46,6 +58,7 @@
   transition: height 0.5s, width 0.5s;
   height: 170px;
   width: 170px;
+  cursor:pointer;
   }
   img.team-logo {
   display: block;
@@ -138,8 +151,6 @@
       font-size: 32px;
     }
     
-    h1:hover {
-      color: #FF00FF;
+    button:hover {
       cursor:pointer;
   }
-
