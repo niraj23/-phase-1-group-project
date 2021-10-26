@@ -237,7 +237,7 @@
         {
             "teamName" : "Los Angeles Kings",
             "id" :  26,
-            "image" : "https://a.espncdn.com/i/teamlogos/nhl/500/lak.png",
+            "image" : "https://a.espncdn.com/i/teamlogos/nhl/500/la.png",
             "colors" : {
                 "primary" : "#111111",
                 "secondary" : "#A2AAAD"
@@ -255,7 +255,7 @@
         {
             "teamName" : "San Jose Sharks",
             "id" :  28,
-            "image" : "https://a.espncdn.com/i/teamlogos/nhl/500/sjs.png",
+            "image" : "https://a.espncdn.com/i/teamlogos/nhl/500/sj.png",
             "colors" : {
                 "primary" : "#006D75",
                 "secondary" : "#EA7200"
@@ -273,7 +273,7 @@
         {
             "teamName" : "Vegas Golden Knights",
             "id" :  54,
-            "image" : "https://a.espncdn.com/i/teamlogos/nhl/500/veg.png",
+            "image" : "https://a.espncdn.com/i/teamlogos/nhl/500/vgs.png",
             "colors" : {
                 "primary" : "#B4975A",
                 "secondary" : "#333f42"

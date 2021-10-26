@@ -1,20 +1,37 @@
 window.addEventListener('DOMContentLoaded', () => init())
 
-const init = () =>{
-    //functions to run on page load
-    getTeams().then(teams => console.log(teams))
-}
+const init = () => getTeams().then(teams => teams.forEach(el => makeTeamTiles(el)))
 
 const getTeams = () => {
-    // return fetch('https://statsapi.web.nhl.com/api/v1/teams').then(resp=>resp.json())
-    return fetch('https://records.nhl.com/site/api/draft?cayenneExp=draftYear=2017%20and%20draftedByTeamId=15').then(resp=>resp.json())
-    //
+    return fetch('http://localhost:3000/teams').then(resp=>resp.json())
 }
 
-const makeTeamCards = teamObj => {
+const makeTeamTiles = teamObj => {
+    const teamContainer = document.getElementById('team-container')
+
+    const teamTile = document.createElement('div')
+    teamTile.className = "team-card"
+    teamTile.style.borderColor = teamObj.colors.secondary
+
+    const teamLogo = document.createElement('img')
+
+    teamLogo.src = teamObj.image
+    teamLogo.className = "team-logo"
+    teamLogo.id = `team-${teamObj.id}`
+    teamLogo.alt = `${teamObj.teamName} Logo`
+    teamLogo.title = `${teamObj.teamName}`
+
+    teamTile.appendChild(teamLogo)
+
+//Add functionality to team tile
+    //Passing team id when clicked
+    teamTile.addEventListener('click', () => {
+        teamContainer.style.display = "None"
+        document.getElementById('player-container').style.display = "flex"
+    })
+        //callback function to be provided by Niraj
+
+    //Append tile to team container
+    teamContainer.appendChild(teamTile)
 
 }
-
-
-
-"\"refe_abrName\",\"espn_team_name\",\"espn_logo\",\"primary\",\"secondary\",\"tertiary\",\"quaternary\"\n\"CAR\",\"Carolina Hurricanes\",\"https://a.espncdn.com/i/teamlogos/nhl/500/car.png\",\"#cc0000\",\"#000000\",\"#a2aaad\",\"#76232f\"\n\"CHI\",\"Chicago Blackhawks\",\"https://a.espncdn.com/i/teamlogos/nhl/500/chi.png\",\"#CF0A2C\",\"#FF671B\",\"#00833E\",\"#ffd100\"\n\"CBJ\",\"Columbus Blue Jackets\",\"https://a.espncdn.com/i/teamlogos/nhl/500/cbj.png\",\"#002654\",\"#ce1126\",\"#A4A9AD\",NA\n\"DAL\",\"Dallas Stars\",\"https://a.espncdn.com/i/teamlogos/nhl/500/dal.png\",\"#006847\",\"#8F8F8C\",\"#111111\",NA\n\"DET\",\"Detroit Red Wings\",\"https://a.espncdn.com/i/teamlogos/nhl/500/det.png\",\"#ce1126\",\"#FFFFFF\",NA,NA\n\"FLA\",\"Florida Panthers\",\"https://a.espncdn.com/i/teamlogos/nhl/500/fla.png\",\"#041E42\",\"#c8102E\",\"#B9975B\",NA\n\"NSH\",\"Nashville Predators\",\"https://a.espncdn.com/i/teamlogos/nhl/500/nsh.png\",\"#FFB81C\",\"#041E42\",\"#FFFFFF\",NA\n\"TBL\",\"Tampa Bay Lightning\",\"https://a.espncdn.com/i/teamlogos/nhl/500/tb.png\",\"#002868\",\"#FFFFFF\",NA,NA\n\"BOS\",\"Boston Bruins\",\"https://a.espncdn.com/i/teamlogos/nhl/500/bos.png\",\"#FFB81C\",\"#000000\",NA,NA\n\"BUF\",\"Buffalo Sabres\",\"https://a.espncdn.com/i/teamlogos/nhl/500/buf.png\",\"#002654\",\"#FCB514\",\"#ADAFAA\",\"#c8102E\"\n\"NJD\",\"New Jersey Devils\",\"https://a.espncdn.com/i/teamlogos/nhl/500/nj.png\",\"#CE1126\",\"#000000\",\"#FFFFFF\",NA\n\"NYI\",\"New York Islanders\",\"https://a.espncdn.com/i/teamlogos/nhl/500/nyi.png\",\"#00539b\",\"#f47d30\",NA,NA\n\"NYR\",\"New York Rangers\",\"https://a.espncdn.com/i/teamlogos/nhl/500/nyr.png\",\"#0038A8\",\"#CE1126\",\"#FFFFFF\",NA\n\"PHI\",\"Philadelphia Flyers\",\"https://a.espncdn.com/i/teamlogos/nhl/500/phi.png\",\"#F74902\",\"#000000\",\"#FFFFFF\",NA\n\"PIT\",\"Pittsburgh Penguins\",\"https://a.espncdn.com/i/teamlogos/nhl/500/pit.png\",\"#000000\",\"#CFC493\",\"#FCB514\",\"#FFFFFF\"\n\"WSH\",\"Washington Capitals\",\"https://a.espncdn.com/i/teamlogos/nhl/500/wsh.png\",\"#041E42\",\"#C8102E\",\"#FFFFFF\",NA\n\"CGY\",\"Calgary Flames\",\"https://a.espncdn.com/i/teamlogos/nhl/500/cgy.png\",\"#c8102E\",\"#F1BE48\",\"#111111\",\"#FFFFFF\"\n\"EDM\",\"Edmonton Oilers\",\"https://a.espncdn.com/i/teamlogos/nhl/500/edm.png\",\"#041E42\",\"#FF4C00\",NA,NA\n\"MTL\",\"Montreal Canadiens\",\"https://a.espncdn.com/i/teamlogos/nhl/500/mtl.png\",\"#AF1E2D\",\"#192168\",NA,NA\n\"OTT\",\"Ottawa Senators\",\"https://a.espncdn.com/i/teamlogos/nhl/500/ott.png\",\"#c52032\",\"#C2912C\",\"#000000\",\"#FFFFFF\"\n\"TOR\",\"Toronto Maple Leafs\",\"https://a.espncdn.com/i/teamlogos/nhl/500/tor.png\",\"#00205b\",\"#FFFFFF\",NA,NA\n\"VAN\",\"Vancouver Canucks\",\"https://a.espncdn.com/i/teamlogos/nhl/500/van.png\",\"#00205B\",\"#00843d\",\"#041C2C\",\"#99999A\"\n\"WPG\",\"Winnipeg Jets\",\"https://a.espncdn.com/i/teamlogos/nhl/500/wpg.png\",\"#041E42\",\"#004C97\",\"#AC162C\",\"#7B303E\"\n\"ANA\",\"Anaheim Ducks\",\"https://a.espncdn.com/i/teamlogos/nhl/500/ana.png\",\"#F47A38\",\"#B9975B\",\"#C1C6C8\",NA\n\"ARI\",\"Arizona Coyotes\",\"https://a.espncdn.com/i/teamlogos/nhl/500/ari.png\",\"#8C2633\",\"#e2d6b5\",\"#111111\",\"#8C2633\"\n\"COL\",\"Colorado Avalanche\",\"https://a.espncdn.com/i/teamlogos/nhl/500/col.png\",\"#6F263D\",\"#236192\",\"#A2AAAD\",\"#000000\"\n\"LAK\",\"Los Angeles Kings\",\"https://a.espncdn.com/i/teamlogos/nhl/500/la.png\",\"#111111\",\"#A2AAAD\",\"#FFFFFF\",\"#572A84\"\n\"MIN\",\"Minnesota Wild\",\"https://a.espncdn.com/i/teamlogos/nhl/500/min.png\",\"#A6192E\",\"#154734\",\"#EAAA00\",\"#DDCBA4\"\n\"SJS\",\"San Jose Sharks\",\"https://a.espncdn.com/i/teamlogos/nhl/500/sj.png\",\"#006D75\",\"#EA7200\",\"#000000\",\"#FFFFFF\"\n\"STL\",\"St. Louis Blues\",\"https://a.espncdn.com/i/teamlogos/nhl/500/stl.png\",\"#002F87\",\"#FCB514\",\"#041E42\",\"#FFFFFF\"\n\"VEG\",\"Vegas Golden Knights\",\"https://a.espncdn.com/i/teamlogos/nhl/500/vgs.png\",\"#B4975A\",\"#333f42\",\"#c8102E\",\"#000000\"\n"}
