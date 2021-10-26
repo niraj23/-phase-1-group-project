@@ -7,6 +7,18 @@
     body {background: rgb(220, 220, 220); color: black ;}
     .team-card{background:rgb(237, 237, 237)}
 }
+/* --------------styles for site header-------------- */
+#site-head{
+    position: absolute;
+    display: flex;
+    justify-content: right;
+    flex-wrap: wrap;
+}
+button{
+    height: 20px;
+    display: block;
+
+}
 
 /* --------------styles for teams-------------- */
 #team-container {
