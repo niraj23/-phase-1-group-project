@@ -72,7 +72,7 @@ const makeTeamTiles = teamObj => {
         
             cardFront.append(cardImage, cardName, likeBttn);
             cardBack.append(backInfo);
-            cardInner.appendChild(cardFront, cardBack);
+            cardInner.append(cardFront, cardBack);
             card.appendChild(cardInner);
             playerContainer.appendChild(card);
         
