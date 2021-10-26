@@ -1,4 +1,7 @@
-window.addEventListener('DOMContentLoaded', () => init())
+//Global Variables 
+const teamContainer = document.getElementById('team-container')
+const playerContainer  = document.getElementById('player-container')
+const newButton = document.getElementById("titlename")
 
 const init = () => getTeams().then(teams => teams.forEach(el => makeTeamTiles(el)))
 
@@ -7,7 +10,6 @@ const getTeams = () => {
 }
 
 const makeTeamTiles = teamObj => {
-    const teamContainer = document.getElementById('team-container')
 
     const teamTile = document.createElement('div')
     teamTile.className = "team-card"
@@ -27,7 +29,6 @@ const makeTeamTiles = teamObj => {
     
     teamTile.addEventListener('click', () => {
         teamContainer.style.display = "None"
-        let playerContainer  = document.getElementById('player-container')
         playerContainer.style.display = "flex";
         
         teamObj.players.forEach(function(players) {
@@ -71,12 +72,7 @@ const makeTeamTiles = teamObj => {
             cardFront.append(cardImage, cardName, likeBttn);
             cardBack.append(backInfo);
             cardInner.append(cardFront, cardBack);
-<<<<<<< HEAD
             playerContainer.appendChild(cardInner);
-=======
-            card.appendChild(cardInner);
-            playerContainer.appendChild(card);
->>>>>>> 18b982ef1c33c828f22d343e435feba0556ebfe0
         
     
     cardInner.addEventListener("click", function () {
@@ -86,3 +82,13 @@ const makeTeamTiles = teamObj => {
 });
 })
 }
+
+    
+    newButton.addEventListener("click", function() {
+        teamContainer.style.display = "flex"
+        playerContainer.style.display = "None";
+});
+
+
+ //Call the entire app
+init()
