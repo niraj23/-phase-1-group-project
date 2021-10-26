@@ -31,7 +31,6 @@ const makeTeamTiles = teamObj => {
         playerContainer.style.display = "flex";
         
         teamObj.players.forEach(function(players) {
-            const card = document.createElement("div");
             const backInfo = document.createElement("h4")
             const cardBack = document.createElement("div")
             const cardInner = document.createElement("div");
@@ -40,22 +39,21 @@ const makeTeamTiles = teamObj => {
             const cardName = document.createElement("h3");
             const likeBttn = document.createElement("button");
 
-            cardInner.className = "sports-card-inner";
             cardFront.className = "card__face card__face--front";
             backInfo.className = "back-info";
             cardBack.className = "card__face card__face--back";
         
-            card.id = `${players.idPlayer}`;
-            card.className = "sports-card";
-            card.style.borderColor = players.primary;
+            cardInner.id = `${players.idPlayer}`;
+            cardInner.className = "sports-card-inner";
+            cardInner.style.borderColor = players.primary;
 
-            card.onmouseover = function() {
+            cardInner.onmouseover = function() {
             var colorString = '0px 8px 16px 0px ' + players.secondary;
             this.style['box-shadow'] = colorString;
             this.style['-webkit-box-shadow'] = colorString;
             this.style['-moz-box-shadow'] = colorString;
             }  
-            card.onmouseout = function() {
+            cardInner.onmouseout = function() {
             this.style['box-shadow'] = "none";
             this.style['-webkit-box-shadow'] = "none";
             this.style['-moz-box-shadow'] = "none";
@@ -72,9 +70,8 @@ const makeTeamTiles = teamObj => {
         
             cardFront.append(cardImage, cardName, likeBttn);
             cardBack.append(backInfo);
-            cardInner.appendChild(cardFront, cardBack);
-            card.appendChild(cardInner);
-            playerContainer.appendChild(card);
+            cardInner.append(cardFront, cardBack);
+            playerContainer.appendChild(cardInner);
         
     
     cardInner.addEventListener("click", function () {

@@ -65,18 +65,7 @@ flex-wrap: wrap;
 .card-image {
 max-width: 150%;
 max-height: 150%;
-position: center;
-}
-
-.sports-card {
-border: solid;
-padding: 75px;
-transition: 0.3s;
-margin: 30px;
-float: left;
-text-align: center;
-width: 100px;
-height: 275px;
+position: center; 
 }
 
 label {
@@ -97,12 +86,18 @@ background-color: red;
 }
 
 .sports-card-inner {
-    width: 100px;
-    height: 275px;
+    border: solid;
+    transition: 0.3s;
+    margin: 30px;
+    float: left;
+    text-align: center;
+    width: 250px;
+    height: 425px;
     transition: transform 1s;
     transform-style: preserve-3d;
     cursor: pointer;
     position: relative;
+    perspective: 1000px;
   }
   
   .sports-card-inner.is-flipped {
@@ -111,8 +106,8 @@ background-color: red;
 
   .card__face {
     position: absolute;
-    width: 100px;
-    height: 275px;
+    width: 250px;
+    height: 425px;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     overflow: hidden;
@@ -125,6 +120,7 @@ background-color: red;
     display: flex;
     align-items: center;
     justify-content: center;
+    perspective: 1000px;
   }
   
   .card__face--front h3 {
