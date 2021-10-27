@@ -39,100 +39,75 @@ const makeTeamTiles = teamObj => {
 
 // Landon's code section
 
-let test = document.querySelector('div.test');
-// ^^ placeholder -- representative of individual card
-test.addEventListener('click', (e) => accessPlayerStats(e))
-// function finds the stats belonging to the player of the clicked card
-const accessPlayerStats = (e) => {
-
-    let targetTeamName = e.path[0].childNodes[1].innerText
-    // ^^ placeholder name -- will reference element containing team name on page
-    let targetPlayerName = e.path[0].childNodes[3].innerText
-    // ^^ placeholder name -- will be replaced with element value containing name of clicked player card
-
-    // function fetches array of all teams
-    const fetchTeamsArray = () => {
-        fetch('https://statsapi.web.nhl.com/api/v1/teams')
-        .then(resp => resp.json())
-        .then(teams => {
-            let teamsArray = teams.teams;
-            teamsArray.forEach(team => {
-                fetchRoster(team);
-            })
+const fetchTeamsArray = () => {
+    fetch('https://statsapi.web.nhl.com/api/v1/teams')
+    .then(resp => resp.json())
+    .then(teams => {
+        let teamsArray = teams.teams;
+        teamsArray.forEach(team => {
+            fetchRoster(team);
         })
-    };
-    fetchTeamsArray()
+    })
+};
+fetchTeamsArray()
 
-    // function accesses roster of the team of the clicked player
-    const fetchRoster = (team) => {
-        if (team.name === targetTeamName) {
-            let teamURL = team.link;
-            let teamRoster = `https://statsapi.web.nhl.com${teamURL}/roster`;
-            fetch(teamRoster)
-            .then(resp => resp.json())
-            .then(roster => {
-                let rosterArray = roster.roster;
-                rosterArray.forEach(player => parsePlayerStats(player))
-            })
-        }
-    }
+const fetchRoster = (team) => {
+    let teamURL = team.link;
+    let teamRoster = `https://statsapi.web.nhl.com${teamURL}/roster`;
+    fetch(teamRoster)
+    .then(resp => resp.json())
+    .then(roster => {
+        let rosterArray = roster.roster;
+        rosterArray.forEach(player => parsePlayerStats(player))
+    })
+}
+// all previous lines should be unnecessary once parsePlayerStats function (below) is passed to Niraj's players.forEach
 
-    // function finds player by name and creates Object containing their stats
-    const parsePlayerStats = (player) => {
-
+const parsePlayerStats = (player) => {
     let playerName = player.person.fullName;
     let id = player.person.id;
     let playerPosition = player.position.name;
 
-    
-    if (playerName === targetPlayerName) {
-        let playerURL = player.person.link;
-        let playerStats = `https://statsapi.web.nhl.com${playerURL}/stats?stats=statsSingleSeason&season=20202021`;
+    let playerURL = player.person.link;
+    let playerStats = `https://statsapi.web.nhl.com${playerURL}/stats?stats=statsSingleSeason&season=20202021`;
 
-        fetch(playerStats)
-        .then(resp => resp.json())
-        .then(stats => {
+    fetch(playerStats)
+    .then(resp => resp.json())
+    .then(stats => {
 
-            let statsArray = stats.stats[0].splits[0].stat;
-            
-            const createPlayerStats = (statsArray) => {
+        let statsArray = stats.stats[0].splits[0].stat;
+        
+        const createPlayerStats = (statsArray) => {
 
-                let playerPositionAbbrev = player.position.code;
+            let playerPositionAbbrev = player.position.code;
 
-                // return differing stats object if player is a goalie
-                if (playerPositionAbbrev === 'G') {
-                    let playerObject = {
-                        "timeOnIce": statsArray.timeOnIce,
-                        "shutouts": statsArray.shutouts,
-                        "saves": statsArray.saves,
-                        "games": statsArray.games
-                    };
-                    createGoalieCard(playerObject, playerName, playerPosition, id);
-                } else {
-                    let playerObject = {
-                        "assists": statsArray.assists,
-                        "shots": statsArray.shots,
-                        "goals": statsArray.goals,
-                        "timeOnIce": statsArray.timeOnIce,
-                        "games": statsArray.games
-                    };
-                    createPlayerCard(playerObject, playerName, playerPosition, id);
-                }
+            // return differing stats object if player is a goalie
+            if (playerPositionAbbrev === 'G') {
+                let playerObject = {
+                    "timeOnIce": statsArray.timeOnIce,
+                    "shutouts": statsArray.shutouts,
+                    "saves": statsArray.saves,
+                    "games": statsArray.games
+                };
+                createGoalieCard(playerObject, playerName, playerPosition, id);
+            } else {
+                let playerObject = {
+                    "assists": statsArray.assists,
+                    "shots": statsArray.shots,
+                    "goals": statsArray.goals,
+                    "timeOnIce": statsArray.timeOnIce,
+                    "games": statsArray.games
+                };
+                createPlayerCard(playerObject, playerName, playerPosition, id);
             }
-            createPlayerStats(statsArray)
-        })
-        .catch(error => console.log('Error:', error))
-    }
-    }
+        }
+        createPlayerStats(statsArray);
+    })
+    .catch(error => console.log('Error:', error))
 }
 
-// should I add click event to each card to unflip them?
-// update to append card where necessary
 const createGoalieCard = (playerObject, playerName, playerPosition, id) => {
-    let div = document.createElement('div');
-    div.className = "card"
-    let statsList = document.createElement('p');
-    statsList.innerHTML = `
+    let statsList = `
     <ul>
         <li>Name: ${playerName}</li>
         <li>Position: ${playerPosition}</li>
@@ -140,17 +115,12 @@ const createGoalieCard = (playerObject, playerName, playerPosition, id) => {
         <li>Shutouts: ${playerObject.shutouts}</li>
         <li>Saves: ${playerObject.saves}</li>
         <li>Games: ${playerObject.games}</li>
-    </ul>
-    `
-    div.append(statsList);
-    document.body.append(div);
+    </ul>`;
+    console.log(statsList);
 };
 
 const createPlayerCard = (playerObject, playerName, playerPosition, id) => {
-    let div = document.createElement('div');
-    div.className = "card"
-    let statsList = document.createElement('p');
-    statsList.innerHTML = `
+    let statsList = `
     <ul>
         <li>Name: ${playerName}</li>
         <li>Position: ${playerPosition}</li>
@@ -159,8 +129,6 @@ const createPlayerCard = (playerObject, playerName, playerPosition, id) => {
         <li>Goals: ${playerObject.goals}</li>
         <li>Assists: ${playerObject.assists}</li>
         <li>Games: ${playerObject.games}</li>
-    </ul>
-    `
-    div.append(statsList);
-    document.body.append(div);
+    </ul>`;
+    console.log(statsList);
 }
