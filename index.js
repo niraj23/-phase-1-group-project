@@ -87,24 +87,11 @@ const makeTeamTiles = teamObj => {
         playerContainer.style.display = "flex"
 
         //retrieve player images
-        const playerTeamId = e.target.parentNode.id
-        const playerImages = (teamId) => {
-            return getTeam(teamId).then(response => {
-                console.log(response)
-                const playerImgs = {}
-                response.players.forEach(el => {
-                    const playerName = el.espn_player_name
-                    const playerImg = el.player_image
-                    playerImgs[playerName] = playerImg
-                })
-                console.log(playerImgs)
-                return playerImgs
-                })
-        }
-        const teamPull = playerImages(e.target.parentNode.id)
-        console.log(playerTeamId)
+        const teamIdInt = parseInt(e.target.parentNode.id,10)
+        const teamPull = playerImages(teamIdInt)
+        // console.log(playerImages(e.target.parentNode.id))
         //build player cards
-        displayPlayers(e.target.parentNode.id,teamPull)
+        displayPlayers(teamIdInt,teamPull)
 
     })
 }
@@ -151,7 +138,7 @@ const playerCreators = (players,teamImgObj) => {
     }
 
     teamImgObj.then(playerImages => {
-        cardImage.src = playerImages.players[fullName]
+        cardImage.src = playerImages[players.person.fullName]
         console.log(cardImage)
     })
     
@@ -180,7 +167,6 @@ const playerCreators = (players,teamImgObj) => {
 //takes a player name and team id
 //needs an array of objects made from a call to db.json
 const getPlayerImage = (teamId,playerName) => {
-    
     let playerImgPaths = playerImages(teamId)
     playerImgPaths.then(players => {
         //NEED TO DETERMINE HOW IMG ELEMENTS ARE BEING CREATED SO WE CAN CATCH THEM HERE AND SET IMAGE SOURCE
@@ -199,18 +185,20 @@ const getTeam = (teamId) => {
     }
 
 //Returns promise of object with list of player image paths 
-// const playerImages = (teamId) => {
-//     return getTeam(teamId).then(response => {
-//         console.log(response)
-//         const playerImgs = {}
-//         response.players.forEach(el => {
-//             const playerName = el.espn_player_name
-//             const playerImg = el.player_image
-//             playerImgs[playerName] = playerImg
-//         })
-//         console.log(playerImgs)
-//         return playerImgs
-//         })
-// }
+const playerImages = (teamId) => {
+    return getTeam(teamId).then(response => {
+        console.trace(response)
+        const playerImgs = {}
+        response.players.forEach(el => {
+            const playerName = el.espn_player_name
+            const playerImg = el.player_image
+            playerImgs[playerName] = playerImg
+        })
+        console.log(playerImgs)
+        return playerImgs
+        })
+}
+
+// playerImages(12)
 
 init();
