@@ -1,38 +1,37 @@
 @media (prefers-color-scheme: dark){
-body {background: #333; color: #fff; }
-.team-card{background:rgb(110, 110, 110)}
-.player-card{}
+     body {background: #333; color: #fff; }
+    .team-card{background:rgb(110, 110, 110)}
+    .player-card{}
 }
 @media (prefers-color-scheme: light){
-body {background: rgb(220, 220, 220); color: black ;}
-.team-card{background:rgb(237, 237, 237)}
-.player-card{}
+    body {background: rgb(220, 220, 220); color: black ;}
+    .team-card{background:rgb(237, 237, 237)}
+    .player-card{}
 }
 /* --------------styles for site header-------------- */
 #site-head{
-display: flex;
-justify-content: left;
-flex-wrap: wrap;
+    display: flex;
+    justify-content: left;
+    flex-wrap: wrap;
 }
 .home-buttons{
-margin: 10px;
-position: center;
-color: #455d8a !important;
-text-transform: uppercase;
-text-decoration: none;
-background: #333;
-padding: 15px;
-border: 2px solid #494949 !important;
-display: inline-block;
-transition: all 0.4s ease 0s;
+  margin: 10px;
+  position: center;
+  color: #455d8a !important;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: #333;
+  padding: 15px;
+  border: 2px solid #494949 !important;
+  display: inline-block;
+  transition: all 0.4s ease 0s;
 }
 .home-buttons:hover {
-cursor:pointer;
-color: #ffffff !important;
-background: #c9320c;
-border-color: #c9320c !important;
-transition: all 0.4s ease 0s;
-}
+  cursor:pointer;
+  color: #ffffff !important;
+  background: #c9320c;
+  border-color: #c9320c !important;
+  transition: all 0.4s ease 0s;
 
 /* --------------styles for teams-------------- */
 #team-container {
@@ -42,19 +41,19 @@ justify-content: center;
 flex-wrap: wrap;
 }
 .team-card {
-border: solid;
-border-radius: 6px;
-padding: 30px;
-box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.4);
-transition: box-shadow 0.3s;
-margin: 15px;
-float: left;
-text-align: center;
-width: 150px;
-height: 150px;
-display: flex;
-align-items: center;
-justify-content: center;
+    border: solid;
+    border-radius: 6px;
+    padding: 30px;
+    box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.4);
+    transition: box-shadow 0.3s;
+    margin: 15px;
+    float: left;
+    text-align: center;
+    width: 150px;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 .team-card:hover {
 box-shadow: 0 12px 24px 0 rgba(0, 0, 0, 0.685);
@@ -74,49 +73,49 @@ width: 150px;
 
 /* --------------styles for players-------------- */
 #player-container {
-position: absolute;
-display: none;
-justify-content: center;
-flex-wrap: wrap;
+  position: absolute;
+  display: none;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 
 label {
-color: rgb(83, 79, 79);
+  color : rgb(83, 79, 79);
 }
 
 .sports-card-inner {
-border: solid;
-transition: 0.3s;
-margin: 30px;
-float: left;
-text-align: center;
-width: 250px;
-height: 425px;
-transition: transform 1s;
-transform-style: preserve-3d;
-cursor: pointer;
-position: relative;
-perspective: 1000px;
+  border: solid;
+  transition: 0.3s;
+  margin: 30px;
+  float: left;
+  text-align: center;
+  width: 250px;
+  height: 425px;
+  transition: transform 1s;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  position: relative;
+  perspective: 1000px;
 }
 
 .sports-card-inner:hover {
-transform: scale(1.1);
+  transform: scale(1.1);
 }
 
 .sports-card-inner.is-flipped {
-transform: rotateY(180deg);
+  transform: rotateY(180deg);
 }
 
 .card__face {
-position: absolute;
-width: 250px;
-height: 425px;
--webkit-backface-visibility: hidden;
-backface-visibility: hidden;
-overflow: hidden;
-border-radius: 16px;
-box-shadow: 0px 3px 18px 3px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  width: 250px;
+  height: 425px;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: 0px 3px 18px 3px rgba(0, 0, 0, 0.2);
 }
 
 .card__face--front {

@@ -104,6 +104,19 @@ const makeTeamTiles = teamObj => {
     const defense = document.getElementById('defense')
     const goalie = document.getElementById('goalies')
     const favorite = document.getElementById('favorite-container')
+
+// function favoritePlayerBttnEvent() {
+//     const favoritePlayerBttn = document.getElementById('team-page-return')
+//     const teamContainer = document.getElementById('team-container')
+//     const playerContainer = document.getElementById('player-container')
+//     const favoriteContainer = document.getElementById('favorite-container')
+//     favoritePlayerBttn.addEventListener('click', () => {
+//         favoriteContainer.style.display = "flex"
+//         hider(playerContainer)
+//         hider(teamContainer)
+//         deletePlayers()
+//     })
+// }
     
     //Create necessary elements and set relevant values
     const teamTile = document.createElement('div')
@@ -129,6 +142,7 @@ const makeTeamTiles = teamObj => {
     teamTile.addEventListener('click', e => {
         
         //hide teams and favorites
+
         offense.style.display = "flex"
         hider(teamContainer)
         hider(favorite)
@@ -172,11 +186,13 @@ const playerCreators = (players,teamImgObj) => {
     const offense = document.getElementById('offense')
     const defense = document.getElementById('defense')
     const goalie = document.getElementById('goalies')
+
     const backInfo = document.createElement("h4")
     const cardBack = document.createElement("div")
     const cardInner = document.createElement("div")
     const cardFront = document.createElement("div")
     const cardImage = document.createElement("img")
+
     const cardName = document.createElement("h2")
     const likeBttn = document.createElement("button")
     const cardHeader = document.createElement('div')
@@ -201,6 +217,7 @@ const playerCreators = (players,teamImgObj) => {
 
     cardInner.onmouseover = function () {
         var colorString = '0px 8px 16px 0px ' + playerImages['secondary'];
+
         this.style['box-shadow'] = colorString
         this.style['-webkit-box-shadow'] = colorString
         this.style['-moz-box-shadow'] = colorString
@@ -211,13 +228,12 @@ const playerCreators = (players,teamImgObj) => {
         this.style['-moz-box-shadow'] = "none"
     }
 
-   
-    
     // cardImage.src = teamImgObj.players[fullName]
     cardImage.className = 'card-image'
     cardImage.style.backgroundColor = playerImages['primary'];
     cardImage.style.border = '5px solid' + playerImages['secondary'];
     cardName.textContent = players.person.fullName
+
 
     likeBttn.className = "like-bttn"
     likeBttn.textContent = "♥"
@@ -229,14 +245,11 @@ const playerCreators = (players,teamImgObj) => {
         preventDefault();
     })
 
-
-
     parsePlayerStats(players).then(data => {
         backInfo.innerHTML = data;
     })
 
     let position = players.position.code;
-
 
     cardHeader.append(cardImage, cardName, likeBttn)
     cardFront.append(cardHeader)
@@ -245,59 +258,19 @@ const playerCreators = (players,teamImgObj) => {
     
     if (position === 'C' || position === 'R' || position === 'L') {
         offense.append(cardInner)
-        playerContainer.appendChild(offense)
     }else if(position === 'D'){
         defense.append(cardInner)
-        playerContainer.appendChild(defense)
     }else{
         goalie.append(cardInner)
-        playerContainer.appendChild(goalie)
     }
-
 
     cardInner.addEventListener("click", function () {
         cardInner.classList.toggle('is-flipped')
     })
-})
+  })
 }
 
-
-//Function to return image src from db.json
-//takes a player name and team id
-//needs an array of objects made from a call to db.json
-const getPlayerImage = (teamId,playerName) => {
-    let playerImgPaths = playerImages(teamId)
-    playerImgPaths.then(players => {
-        //NEED TO DETERMINE HOW IMG ELEMENTS ARE BEING CREATED SO WE CAN CATCH THEM HERE AND SET IMAGE SOURCE
-        const playerImgElement =  document.getElementById(`Img-${playerName}`)
-        playerImgElement.src = players[playerName]
-        playerImgElement.alt = `${playerName} Headshot`
-        playerImgElement.title = `${playerName}`
-    })
-}
-
-//Returns promise of object of selected team
-const getTeam = (teamId) => {
-    return fetch('http://localhost:3000/teams')
-        .then(resp => resp.json())
-        .then(teams => teams.find((el) => el.id === teamId))
-    }
-
-//Returns promise of object with list of player image paths 
-const playerImages = (teamId) => {
-    return getTeam(teamId).then(response => {
-        const playerImgs = {}
-        response.players.forEach(el => {
-            const playerName = el.espn_player_name
-            const playerImg = el.player_image
-            playerImgs[playerName] = playerImg
-            playerImgs['primary'] = el.primary
-            playerImgs['secondary'] = el.secondary
-        })
-        console.log(playerImgs)
-        return playerImgs
-        })
-}
+//------------------------------------------------------------------------------------------
 const parsePlayerStats = (player) => {
     let playerName = player.person.fullName;
     let id = player.person.id;
@@ -366,6 +339,42 @@ const createPlayerCard = (playerObject, playerName, playerPosition, id) => {
         <li>Games: ${playerObject.games}</li>
     </ul>`;
     return statsList;
+
+};
+//Function to return image src from db.json
+//takes a player name and team id
+//needs an array of objects made from a call to db.json
+const getPlayerImage = (teamId,playerName) => {
+    let playerImgPaths = playerImages(teamId)
+    playerImgPaths.then(players => {
+        //NEED TO DETERMINE HOW IMG ELEMENTS ARE BEING CREATED SO WE CAN CATCH THEM HERE AND SET IMAGE SOURCE
+        const playerImgElement =  document.getElementById(`Img-${playerName}`)
+        playerImgElement.src = players[playerName]
+        playerImgElement.alt = `${playerName} Headshot`
+        playerImgElement.title = `${playerName}`
+    })
+}
+
+//Returns promise of object of selected team
+const getTeam = (teamId) => {
+    return fetch('http://localhost:3000/teams')
+        .then(resp => resp.json())
+        .then(teams => teams.find((el) => el.id === teamId))
+    }
+
+//Returns promise of object with list of player image paths 
+const playerImages = (teamId) => {
+    return getTeam(teamId).then(response => {
+        console.trace(response)
+        const playerImgs = {}
+        response.players.forEach(el => {
+            const playerName = el.espn_player_name
+            const playerImg = el.player_image
+            playerImgs[playerName] = playerImg
+        })
+        console.log(playerImgs)
+        return playerImgs
+        })
 }
 // playerImages(12)
 
