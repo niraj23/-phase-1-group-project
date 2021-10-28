@@ -12,6 +12,7 @@ const init = () => {
 const getTeams = () => {
     return fetch('http://localhost:3000/teams').then(resp => resp.json())
 }
+
 //set up button functionality
 function teamSelectBttnEvent() {
     const teamSelectBttn = document.getElementById('team-page-return')
@@ -277,20 +278,26 @@ const getTeam = (teamId) => {
     }
 
 //Returns promise of object with list of player image paths 
-const playerImages = (teamId) => {
-    return getTeam(teamId).then(response => {
+const playerImages = () => {
+    return getTeams().then(response => {
         const playerImgs = {}
-        response.players.forEach(el => {
-            const playerName = el.espn_player_name
-            const playerImg = el.player_image
-            playerImgs[playerName] = playerImg
-            playerImgs['primary'] = el.primary
-            playerImgs['secondary'] = el.secondary
+        response.forEach(team => {
+            console.log(team)
+            const players = team.players || []
+            players.forEach(player => {
+                const playerName = player.espn_player_name
+                const playerImg = player.player_image
+                playerImgs[playerName] = playerImg
+                // playerImgs['primary'] = player.primary
+                // playerImgs['secondary'] = player.secondary
+            })
+        // console.log(playerImgs)
         })
-        console.log(playerImgs)
-        return playerImgs
-        })
+    return playerImgs
+    })
 }
+
+
     const parsePlayerStats = (player) => {
         let playerName = player.person.fullName;
         let id = player.person.id;
