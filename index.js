@@ -20,6 +20,7 @@ function teamSelectBttnEvent() {
         deletePlayers()
     })
 }
+
 // function favoritePlayerBttnEvent() {
 //     const favoritePlayerBttn = document.getElementById('team-page-return')
 //     const teamContainer = document.getElementById('team-container')
@@ -139,7 +140,7 @@ const playerCreators = (players,teamImgObj) => {
 
     teamImgObj.then(playerImages => {
         cardImage.src = playerImages[players.person.fullName]
-        console.log(cardImage)
+        // console.log(cardImage)
     })
     
     // cardImage.src = teamImgObj.players[fullName]
@@ -149,8 +150,10 @@ const playerCreators = (players,teamImgObj) => {
     likeBttn.className = "like-bttn"
     likeBttn.textContent = "♥"
 
-    backInfo.textContent = "Hey if you see this you got the card to flip"
-
+    parsePlayerStats(players).then(data => {
+        backInfo.innerHTML = data;
+    })
+    
     cardFront.append(cardImage, cardName, likeBttn)
     cardBack.append(backInfo)
     cardInner.append(cardFront, cardBack)
@@ -162,7 +165,76 @@ const playerCreators = (players,teamImgObj) => {
     })
 }
 
+//------------------------------------------------------------------------------------------
+const parsePlayerStats = (player) => {
+    let playerName = player.person.fullName;
+    let id = player.person.id;
+    let playerPosition = player.position.name;
 
+    let playerURL = player.person.link;
+    let playerStats = `https://statsapi.web.nhl.com${playerURL}/stats?stats=statsSingleSeason&season=20202021`;
+
+    return fetch(playerStats)
+    .then(resp => resp.json())
+    .then(stats => {
+
+        let statsArray = stats.stats[0].splits[0].stat;
+        
+        const createPlayerStats = (statsArray) => {
+
+            let playerPositionAbbrev = player.position.code;
+
+            // return differing stats object if player is a goalie
+            if (playerPositionAbbrev === 'G') {
+                let playerObject = {
+                    "timeOnIce": statsArray.timeOnIce,
+                    "shutouts": statsArray.shutouts,
+                    "saves": statsArray.saves,
+                    "games": statsArray.games
+                };
+                return createGoalieCard(playerObject, playerName, playerPosition, id);
+            } else {
+                let playerObject = {
+                    "assists": statsArray.assists,
+                    "shots": statsArray.shots,
+                    "goals": statsArray.goals,
+                    "timeOnIce": statsArray.timeOnIce,
+                    "games": statsArray.games
+                };
+                return createPlayerCard(playerObject, playerName, playerPosition, id);
+            }
+        }
+        return createPlayerStats(statsArray);
+    })
+    .catch(error => console.log('Error:', error))
+}
+
+const createGoalieCard = (playerObject, playerName, playerPosition, id) => {
+    let statsList = `
+    <ul>
+        <li>Name: ${playerName}</li>
+        <li>Position: ${playerPosition}</li>
+        <li>Time on Ice: ${playerObject.timeOnIce}</li>
+        <li>Shutouts: ${playerObject.shutouts}</li>
+        <li>Saves: ${playerObject.saves}</li>
+        <li>Games: ${playerObject.games}</li>
+    </ul>`;
+    return statsList;
+};
+
+const createPlayerCard = (playerObject, playerName, playerPosition, id) => {
+    let statsList = `
+    <ul>
+        <li>Name: ${playerName}</li>
+        <li>Position: ${playerPosition}</li>
+        <li>Time on Ice: ${playerObject.timeOnIce}</li>
+        <li>Shots: ${playerObject.shots}</li>
+        <li>Goals: ${playerObject.goals}</li>
+        <li>Assists: ${playerObject.assists}</li>
+        <li>Games: ${playerObject.games}</li>
+    </ul>`;
+    return statsList;
+};
 //Function to return image src from db.json
 //takes a player name and team id
 //needs an array of objects made from a call to db.json
