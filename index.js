@@ -9,6 +9,14 @@ const init = () => {
     favoritesButton()
 }
 
+// displays must be set to none or displayPlayers() will show headings before player cards load
+const offense = document.getElementById('offense')
+const defense = document.getElementById('defense')
+const goalie = document.getElementById('goalies')
+offense.style.display = "none"
+defense.style.display = "none"
+goalie.style.display = "none"
+
 const getTeams = () => {
     return fetch('http://localhost:3000/teams').then(resp => resp.json())
 }
@@ -19,13 +27,34 @@ function teamSelectBttnEvent() {
     const teamContainer = document.getElementById('team-container')
     const playerContainer = document.getElementById('player-container')
     const favoriteContainer = document.getElementById('favorite-container')
+
+    const offense = document.getElementById('offense')
+    const defense = document.getElementById('defense')
+    const goalie = document.getElementById('goalies')
     teamSelectBttn.addEventListener('click', () => {
         hider(playerContainer)
         hider(favoriteContainer)
         teamContainer.style.display = "flex"
         teamSelectBttn.style.display = "none"
+        offense.style.display = "none"
+        defense.style.display = "none"
+        goalie.style.display = "none"
 
         deletePlayers()
+        makeTeamTiles(teamObj)
+    })
+}
+function offenseButton() {
+    const offense = document.getElementById('offense')
+    const defense = document.getElementById('defense')
+    const goalie = document.getElementById('goalies')
+    const favorite = document.getElementById('favorite-container')
+    const offenseBttn = document.getElementById('offense-button')
+    offenseBttn.addEventListener('click', () => {
+        offense.style.display = "block"
+        defense.style.display = "none"
+        goalie.style.display = "none"
+        favorite.style.display = "none"
     })
 }
 function offenseButton() {
@@ -50,7 +79,7 @@ function defenseButton() {
     const defenseBttn = document.getElementById('defense-button')
     defenseBttn.addEventListener('click', () => {
         offense.style.display = "none"
-        defense.style.display = "flex"
+        defense.style.display = "block"
         goalie.style.display = "none"
         favorite.style.display = "none"
     })
@@ -65,7 +94,7 @@ function goalieButton() {
     goalieBttn.addEventListener('click', () => {
         offense.style.display = "none"
         defense.style.display = "none"
-        goalie.style.display = "flex"
+        goalie.style.display = "block"
         favorite.style.display = "none"
     })
 }
@@ -194,6 +223,8 @@ const displayPlayers = (teamId,teamImgObj) => {
         cardInner.id = `${players.person.id}`
         cardInner.className = "sports-card-inner"
         cardInner.style.borderColor = playerImages['primary'];
+        cardInner.style.borderRadius = '20px';
+
     
         cardInner.onmouseover = function () {
             var colorString = '0px 8px 16px 0px ' + playerImages['secondary'];
@@ -248,6 +279,10 @@ const displayPlayers = (teamId,teamImgObj) => {
             // playerContainer.appendChild(goalie)
         }
     
+
+        offense.style.display = 'inline-block'
+        defense.style.display = 'inline-block'
+        goalie.style.display = 'inline-block'
     
         cardInner.addEventListener("click", function () {
             cardInner.classList.toggle('is-flipped')
@@ -278,6 +313,7 @@ const getTeam = (teamId) => {
     }
 
 //Returns promise of object with list of player image paths 
+
 const playerImages = () => {
     return getTeams().then(response => {
         const playerImgs = {}
@@ -296,8 +332,6 @@ const playerImages = () => {
     return playerImgs
     })
 }
-
-
     const parsePlayerStats = (player) => {
         let playerName = player.person.fullName;
         let id = player.person.id;
@@ -338,33 +372,67 @@ const playerImages = () => {
             }
             return createPlayerStats(statsArray);
         })
-        .catch(error => console.log('Error:', error))
+
+        .catch(error => {
+            let errorMessage = 'Player stats unavailable at this time.'
+            return errorMessage
+        })
     }
     
     const createGoalieCard = (playerObject, playerName, playerPosition, id) => {
         let statsList = `
-        <ul>
-            <li>Name: ${playerName}</li>
-            <li>Position: ${playerPosition}</li>
-            <li>Time on Ice: ${playerObject.timeOnIce}</li>
-            <li>Shutouts: ${playerObject.shutouts}</li>
-            <li>Saves: ${playerObject.saves}</li>
-            <li>Games: ${playerObject.games}</li>
-        </ul>`;
+        ${playerName.toUpperCase()}
+        <h4>${playerPosition}</h4>
+        <h5>Player Stats</h5>
+        <table>
+            <tr>
+                <td>Time on Ice:</td>
+                <td class="stat-value">${playerObject.timeOnIce}</td>
+            </tr>
+            <tr>
+                <td>Shutouts:</td>
+                <td class="stat-value">${playerObject.shutouts}</td>
+            </tr>
+            <tr>
+                <td>Saves:</td>
+                <td class="stat-value">${playerObject.saves}</td>
+            </tr>
+            <tr>
+                <td>Games:</td>
+                <td class="stat-value">${playerObject.games}</td>
+            </tr>
+        </table>`;
         return statsList;
     };
     
     const createPlayerCard = (playerObject, playerName, playerPosition, id) => {
         let statsList = `
-        <ul>
-            <li>Name: ${playerName}</li>
-            <li>Position: ${playerPosition}</li>
-            <li>Time on Ice: ${playerObject.timeOnIce}</li>
-            <li>Shots: ${playerObject.shots}</li>
-            <li>Goals: ${playerObject.goals}</li>
-            <li>Assists: ${playerObject.assists}</li>
-            <li>Games: ${playerObject.games}</li>
-        </ul>`;
+        ${playerName.toUpperCase()}
+        <h4>${playerPosition}</h4>
+        <h5>Player Stats</h5>
+        <table>
+            <tr>
+                <td>Time on Ice:</td>
+                <td class="stat-value">${playerObject.timeOnIce}</td>
+            </tr>
+            <tr>
+                <td>Shots:</td>
+                <td class="stat-value">${playerObject.shots}</td>
+            </tr>
+            <tr>
+                <td>Goals:</td>
+                <td class="stat-value">${playerObject.goals}</td>
+            </tr>
+            <tr>
+                <td>Assists:</td>
+                <td class="stat-value">${playerObject.assists}</td>
+            </tr>
+            <tr>
+                <td>Games:</td>
+                <td class="stat-value">${playerObject.games}</td>
+            </tr>
+            
+        </table>`;
         return statsList;
     }
     // playerImages(12)
