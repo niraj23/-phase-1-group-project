@@ -24,6 +24,9 @@ const getTeams = () => {
 //set up button functionality
 function teamSelectBttnEvent() {
     const teamSelectBttn = document.getElementById('team-page-return')
+    const offenseSelectBttn = document.getElementById('offense-button')
+    const defenseSelectBttn = document.getElementById('defense-button')
+    const goalieSelectBttn = document.getElementById('goalie-button')
     const teamContainer = document.getElementById('team-container')
     const playerContainer = document.getElementById('player-container')
     const favoriteContainer = document.getElementById('favorite-container')
@@ -40,10 +43,15 @@ function teamSelectBttnEvent() {
         defense.style.display = "none"
         goalie.style.display = "none"
 
+        offenseSelectBttn.style.display = "none"
+        defenseSelectBttn.style.display = "none"
+        goalieSelectBttn.style.display = "none"
+
         deletePlayers()
         makeTeamTiles(teamObj)
     })
 }
+
 function offenseButton() {
     const offense = document.getElementById('offense')
     const defense = document.getElementById('defense')
@@ -52,19 +60,6 @@ function offenseButton() {
     const offenseBttn = document.getElementById('offense-button')
     offenseBttn.addEventListener('click', () => {
         offense.style.display = "block"
-        defense.style.display = "none"
-        goalie.style.display = "none"
-        favorite.style.display = "none"
-    })
-}
-function offenseButton() {
-    const offense = document.getElementById('offense')
-    const defense = document.getElementById('defense')
-    const goalie = document.getElementById('goalies')
-    const favorite = document.getElementById('favorite-container')
-    const offenseBttn = document.getElementById('offense-button')
-    offenseBttn.addEventListener('click', () => {
-        offense.style.display = "flex"
         defense.style.display = "none"
         goalie.style.display = "none"
         favorite.style.display = "none"
@@ -100,6 +95,9 @@ function goalieButton() {
 }
 
 function favoritesButton() {
+    const offenseSelectBttn = document.getElementById('offense-button')
+    const defenseSelectBttn = document.getElementById('defense-button')
+    const goalieSelectBttn = document.getElementById('goalie-button')
     const offense = document.getElementById('offense')
     const defense = document.getElementById('defense')
     const goalie = document.getElementById('goalies')
@@ -112,8 +110,13 @@ function favoritesButton() {
         offense.style.display = "none"
         defense.style.display = "none"
         goalie.style.display = "none"
+        offenseSelectBttn.style.display = "none"
+        defenseSelectBttn.style.display = "none"
+        goalieSelectBttn.style.display = "none"
+        deletePlayers()
         favorite.style.display = "flex"
         teamSelectBttn.style.display = "block"
+    
     })
 }
 
@@ -162,6 +165,14 @@ const makeTeamTiles = teamObj => {
     //Passing team id when clicked
     teamTile.addEventListener('click', e => {
         
+        //handle button display functionality when team is selected
+        const offenseSelectBttn = document.getElementById('offense-button')
+        const defenseSelectBttn = document.getElementById('defense-button')
+        const goalieSelectBttn = document.getElementById('goalie-button')
+        offenseSelectBttn.style.display = "inline-block"
+        defenseSelectBttn.style.display = "inline-block"
+        goalieSelectBttn.style.display = "inline-block"
+
         //hide teams and favorites
         hider(teamContainer)
         hider(favoriteContainer)

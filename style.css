@@ -33,6 +33,13 @@
     display: inline-block;
     transition: all 0.4s ease 0s;
     }
+    #team-page-return, #offense-button, #defense-button, #goalie-button{
+      display: none
+    }
+
+    const offenseSelectBttn = document.getElementById('offense-button')
+        const defenseSelectBttn = document.getElementById('defense-button')
+        const goalieSelectBttn = document.getElementById('goalie-button')
     .home-buttons:hover {
     cursor:pointer;
     color: #ffffff !important;
