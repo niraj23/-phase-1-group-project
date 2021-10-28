@@ -129,6 +129,7 @@ const makeTeamTiles = teamObj => {
     teamTile.addEventListener('click', e => {
         
         //hide teams and favorites
+        offense.style.display = "flex"
         hider(teamContainer)
         hider(favorite)
         hider(defense)
