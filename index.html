@@ -10,30 +10,29 @@
 <body>
     <div id="site-head">
         <h1>NHL Team Stats</h1>
-        <button type="button" id="team-page-return">Team Selection</button>
-        <button type="button" id="favorites-page">Favorite Players</button>
+
+        <button type="button" class="home-buttons" id="team-page-return">Team Selection</button>
+        <button type="button" class="home-buttons" id="favorites-page">Favorite Players</button>
+        <button type="button" class="home-buttons" id="offense-button">Offense </button>
+        <button type="button" class="home-buttons" id="defense-button">Defense</button>
+        <button type="button" class="home-buttons" id="goalie-button">Goalies</button>
     </div>
 
     <div id="team-container"></div>
     <div id="favorite-container"></div>
     <div id="player-container">
         
-        <div id="offense">
-            <h3>offense</h3>
+        <div id="offense" class="position-lineup">
+            <h3>Offense</h3>
         </div>
         
-        <div id="defense">
-            <h3>defense</h3>
+        <div id="defense" class="position-lineup">
+            <h3>Defense</h3>
         </div>
         
-        <div id="goalies">
-            <h3>goalies</h3>
-        </div>
-        
-        <div id="coaches">
-            <h3>coaches</h3>
+        <div id="goalies" class="position-lineup">
+            <h3>Goalies</h3>
         </div>
     </div>
-    <div id="favorite-players"></div>
 </body>
 </html>
