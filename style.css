@@ -1,6 +1,5 @@
-
 @media (prefers-color-scheme: dark){
-    body {background: #333; color: #fff; }
+     body {background: #333; color: #fff; }
     .team-card{background:rgb(110, 110, 110)}
     .player-card{}
 }
@@ -15,18 +14,31 @@
     justify-content: left;
     flex-wrap: wrap;
 }
-button{
-    height: 30px;
-    display: none;
-
+.home-buttons{
+  margin: 10px;
+  position: center;
+  color: #455d8a !important;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: #333;
+  padding: 15px;
+  border: 2px solid #494949 !important;
+  display: inline-block;
+  transition: all 0.4s ease 0s;
 }
+.home-buttons:hover {
+  cursor:pointer;
+  color: #ffffff !important;
+  background: #c9320c;
+  border-color: #c9320c !important;
+  transition: all 0.4s ease 0s;
 
 /* --------------styles for teams-------------- */
 #team-container {
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
+position: absolute;
+display: flex;
+justify-content: center;
+flex-wrap: wrap;
 }
 .team-card {
     border: solid;
@@ -44,92 +56,132 @@ button{
     justify-content: center;
 }
 .team-card:hover {
-    box-shadow: 0 12px 24px 0 rgba(0, 0, 0, 0.685);
+box-shadow: 0 12px 24px 0 rgba(0, 0, 0, 0.685);
 }
 .team-card:hover img{
-    transition: height 0.5s, width 0.5s;
-    height: 170px;
-    width: 170px;
+cursor:pointer;
+transition: height 0.5s, width 0.5s;
+height: 170px;
+width: 170px;
 }
 img.team-logo {
-    display: block;
-    position: absolute;
-    height: 150px;
-    width: 150px;
+display: block;
+position: absolute;
+height: 150px;
+width: 150px;
 }
 
 /* --------------styles for players-------------- */
 #player-container {
-    position: absolute;
-    display: none;
-    justify-content: center;
-    flex-wrap: wrap;
-    }
-.card-image {
-    max-width: 150%;
-    max-height: 150%;
-    position: center; 
-    }
+  position: absolute;
+  display: none;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+
 label {
-    color: rgb(83, 79, 79);
-    }
-.like-bttn {
-    color: red;
-    font-size: small;
-    margin-right: 10px;
-    margin-left: 10px;
-    margin-bottom: 5px;
+  color : rgb(83, 79, 79);
 }
-.like-bttn:hover {
-    color: white;
-    background-color: red;
-}
+
 .sports-card-inner {
-    border: solid;
-    transition: 0.3s;
-    margin: 30px;
-    float: left;
-    text-align: center;
-    width: 250px;
-    height: 425px;
-    transition: transform 1s;
-    transform-style: preserve-3d;
-    cursor: pointer;
-    position: relative;
-    perspective: 1000px;
-}      
+  border: solid;
+  transition: 0.3s;
+  margin: 30px;
+  float: left;
+  text-align: center;
+  width: 250px;
+  height: 425px;
+  transition: transform 1s;
+  transform-style: preserve-3d;
+  cursor: pointer;
+  position: relative;
+  perspective: 1000px;
+}
+
+.sports-card-inner:hover {
+  transform: scale(1.1);
+}
+
 .sports-card-inner.is-flipped {
-    transform: rotateY(180deg);
-}  
+  transform: rotateY(180deg);
+}
+
 .card__face {
-    position: absolute;
-    width: 250px;
-    height: 425px;
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    overflow: hidden;
-    border-radius: 16px;
-    box-shadow: 0px 3px 18px 3px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  width: 250px;
+  height: 425px;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: 0px 3px 18px 3px rgba(0, 0, 0, 0.2);
 }
+
 .card__face--front {
-    background-image: linear-gradient(to bottom right, var(--primary), var(--secondary));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    perspective: 1000px;
+background-image: linear-gradient(to bottom right, var(--primary), var(--secondary));
+display: flex;
+align-items: center;
+justify-content: center;
+perspective: 1000px;
+position: absolute;
 }
-.card__face--front h3 {
-    color: #FFF;
-    font-size: 32px;
-}
+
 .card__face--back {
-    background-color: var(--light);
-    transform: rotateY(180deg);
+background-color: var(--light);
+transform: rotateY(180deg);
 }
+
 .card__face--back h4 {
-    color: #FFF;
-    font-size: 32px;
+color: #FFF;
+font-size: 32px;
 }
-button:hover {
-    cursor:pointer;
-    }
+
+.card-header {
+position: relative;
+padding: 30px 30px 40px;
+}
+
+.card-header:after {
+content: '';
+display: block;
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-image: linear-gradient(to bottom left, var(--primary) 10%, var(--secondary) 115%);
+z-index: -1;
+border-radius: 0px 0px 50% 0px;
+}
+
+.card-image {
+display: block;
+width: 128px;
+height: 128px;
+margin: 0 auto 30px;
+border-radius: 50%;
+object-fit: cover;
+}
+
+.card-header h2 {
+color: #FFF;
+font-size: 32px;
+font-weight: 900;
+text-transform: uppercase;
+text-align: center;
+}
+.like-bttn {
+color: red;
+font-size: large;
+margin-right: 20px;
+margin-left: 20px;
+margin-bottom: 5px;
+}
+
+.like-bttn:hover {
+cursor: pointer;
+color: white;
+background-color: red;
+}
+
