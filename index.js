@@ -17,10 +17,13 @@ function teamSelectBttnEvent() {
     const teamSelectBttn = document.getElementById('team-page-return')
     const teamContainer = document.getElementById('team-container')
     const playerContainer = document.getElementById('player-container')
+    const favoriteContainer = document.getElementById('favorite-container')
     teamSelectBttn.addEventListener('click', () => {
         hider(playerContainer)
+        hider(favoriteContainer)
         teamContainer.style.display = "flex"
         teamSelectBttn.style.display = "none"
+
         deletePlayers()
     })
 }
@@ -73,19 +76,20 @@ function favoritesButton() {
     const favorite = document.getElementById('favorite-container')
     const teamContainer = document.getElementById('team-container')
     const favoritesBttn = document.getElementById('favorites-page')
+    const teamSelectBttn = document.getElementById('team-page-return')
     favoritesBttn.addEventListener('click', () => {
         teamContainer.style.display = "none"
         offense.style.display = "none"
         defense.style.display = "none"
         goalie.style.display = "none"
         favorite.style.display = "flex"
+        teamSelectBttn.style.display = "block"
     })
 }
 
-
 //Delete function to remove player cards from DOM
 const deletePlayers = () => {
-    const allPlayers = document.querySelectorAll('.sports-card-inner')
+    const allPlayers = document.querySelectorAll('div.position-lineup > div.sports-card-inner')
     allPlayers.forEach(el => el.remove())
 }
 
@@ -103,7 +107,7 @@ const makeTeamTiles = teamObj => {
     const teamSelectBttn = document.getElementById('team-page-return') 
     const defense = document.getElementById('defense')
     const goalie = document.getElementById('goalies')
-    const favorite = document.getElementById('favorite-container')
+    const favoriteContainer = document.getElementById('favorite-container')
     
     //Create necessary elements and set relevant values
     const teamTile = document.createElement('div')
@@ -130,16 +134,11 @@ const makeTeamTiles = teamObj => {
         
         //hide teams and favorites
         hider(teamContainer)
-        hider(favorite)
-
-        // hider(favoriteContainer)
-
+        hider(favoriteContainer)
         //display team selector return button
         teamSelectBttn.style.display = "block"
-
         //display playerscontainer
         playerContainer.style.display = "flex"
-
         //retrieve player images
         const teamIdInt = parseInt(e.target.parentNode.id,10)
         const teamPull = playerImages(teamIdInt)
@@ -224,9 +223,7 @@ const displayPlayers = (teamId,teamImgObj) => {
             favoriteContainer.append(clonedDiv)
             e.preventDefault();
         })
-    
-    
-    
+
         parsePlayerStats(players).then(data => {
             backInfo.innerHTML = data;
         })
@@ -258,42 +255,42 @@ const displayPlayers = (teamId,teamImgObj) => {
     }
     
     
-    //Function to return image src from db.json
-    //takes a player name and team id
-    //needs an array of objects made from a call to db.json
-    const getPlayerImage = (teamId,playerName) => {
-        let playerImgPaths = playerImages(teamId)
-        playerImgPaths.then(players => {
-            //NEED TO DETERMINE HOW IMG ELEMENTS ARE BEING CREATED SO WE CAN CATCH THEM HERE AND SET IMAGE SOURCE
-            const playerImgElement =  document.getElementById(`Img-${playerName}`)
-            playerImgElement.src = players[playerName]
-            playerImgElement.alt = `${playerName} Headshot`
-            playerImgElement.title = `${playerName}`
+//Function to return image src from db.json
+//takes a player name and team id
+//needs an array of objects made from a call to db.json
+const getPlayerImage = (teamId,playerName) => {
+    let playerImgPaths = playerImages(teamId)
+    playerImgPaths.then(players => {
+        //NEED TO DETERMINE HOW IMG ELEMENTS ARE BEING CREATED SO WE CAN CATCH THEM HERE AND SET IMAGE SOURCE
+        const playerImgElement =  document.getElementById(`Img-${playerName}`)
+        playerImgElement.src = players[playerName]
+        playerImgElement.alt = `${playerName} Headshot`
+        playerImgElement.title = `${playerName}`
+    })
+}
+
+//Returns promise of object of selected team
+const getTeam = (teamId) => {
+    return fetch('http://localhost:3000/teams')
+        .then(resp => resp.json())
+        .then(teams => teams.find((el) => el.id === teamId))
+    }
+
+//Returns promise of object with list of player image paths 
+const playerImages = (teamId) => {
+    return getTeam(teamId).then(response => {
+        const playerImgs = {}
+        response.players.forEach(el => {
+            const playerName = el.espn_player_name
+            const playerImg = el.player_image
+            playerImgs[playerName] = playerImg
+            playerImgs['primary'] = el.primary
+            playerImgs['secondary'] = el.secondary
         })
-    }
-    
-    //Returns promise of object of selected team
-    const getTeam = (teamId) => {
-        return fetch('http://localhost:3000/teams')
-            .then(resp => resp.json())
-            .then(teams => teams.find((el) => el.id === teamId))
-        }
-    
-    //Returns promise of object with list of player image paths 
-    const playerImages = (teamId) => {
-        return getTeam(teamId).then(response => {
-            const playerImgs = {}
-            response.players.forEach(el => {
-                const playerName = el.espn_player_name
-                const playerImg = el.player_image
-                playerImgs[playerName] = playerImg
-                playerImgs['primary'] = el.primary
-                playerImgs['secondary'] = el.secondary
-            })
-            console.log(playerImgs)
-            return playerImgs
-            })
-    }
+        console.log(playerImgs)
+        return playerImgs
+        })
+}
     const parsePlayerStats = (player) => {
         let playerName = player.person.fullName;
         let id = player.person.id;
