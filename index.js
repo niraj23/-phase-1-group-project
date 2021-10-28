@@ -20,12 +20,14 @@ goalie.style.display = "none"
 const getTeams = () => {
     return fetch('http://localhost:3000/teams').then(resp => resp.json())
 }
+
 //set up button functionality
 function teamSelectBttnEvent() {
     const teamSelectBttn = document.getElementById('team-page-return')
     const teamContainer = document.getElementById('team-container')
     const playerContainer = document.getElementById('player-container')
     const favoriteContainer = document.getElementById('favorite-container')
+
     const offense = document.getElementById('offense')
     const defense = document.getElementById('defense')
     const goalie = document.getElementById('goalies')
@@ -37,6 +39,7 @@ function teamSelectBttnEvent() {
         offense.style.display = "none"
         defense.style.display = "none"
         goalie.style.display = "none"
+
         deletePlayers()
         makeTeamTiles(teamObj)
     })
@@ -49,6 +52,19 @@ function offenseButton() {
     const offenseBttn = document.getElementById('offense-button')
     offenseBttn.addEventListener('click', () => {
         offense.style.display = "block"
+        defense.style.display = "none"
+        goalie.style.display = "none"
+        favorite.style.display = "none"
+    })
+}
+function offenseButton() {
+    const offense = document.getElementById('offense')
+    const defense = document.getElementById('defense')
+    const goalie = document.getElementById('goalies')
+    const favorite = document.getElementById('favorite-container')
+    const offenseBttn = document.getElementById('offense-button')
+    offenseBttn.addEventListener('click', () => {
+        offense.style.display = "flex"
         defense.style.display = "none"
         goalie.style.display = "none"
         favorite.style.display = "none"
@@ -208,6 +224,7 @@ const displayPlayers = (teamId,teamImgObj) => {
         cardInner.className = "sports-card-inner"
         cardInner.style.borderColor = playerImages['primary'];
         cardInner.style.borderRadius = '20px';
+
     
         cardInner.onmouseover = function () {
             var colorString = '0px 8px 16px 0px ' + playerImages['secondary'];
@@ -262,6 +279,7 @@ const displayPlayers = (teamId,teamImgObj) => {
             // playerContainer.appendChild(goalie)
         }
     
+
         offense.style.display = 'inline-block'
         defense.style.display = 'inline-block'
         goalie.style.display = 'inline-block'
@@ -295,19 +313,24 @@ const getTeam = (teamId) => {
     }
 
 //Returns promise of object with list of player image paths 
-const playerImages = (teamId) => {
-    return getTeam(teamId).then(response => {
+
+const playerImages = () => {
+    return getTeams().then(response => {
         const playerImgs = {}
-        response.players.forEach(el => {
-            const playerName = el.espn_player_name
-            const playerImg = el.player_image
-            playerImgs[playerName] = playerImg
-            playerImgs['primary'] = el.primary
-            playerImgs['secondary'] = el.secondary
+        response.forEach(team => {
+            console.log(team)
+            const players = team.players || []
+            players.forEach(player => {
+                const playerName = player.espn_player_name
+                const playerImg = player.player_image
+                playerImgs[playerName] = playerImg
+                // playerImgs['primary'] = player.primary
+                // playerImgs['secondary'] = player.secondary
+            })
+        // console.log(playerImgs)
         })
-        console.log(playerImgs)
-        return playerImgs
-        })
+    return playerImgs
+    })
 }
     const parsePlayerStats = (player) => {
         let playerName = player.person.fullName;
@@ -349,6 +372,7 @@ const playerImages = (teamId) => {
             }
             return createPlayerStats(statsArray);
         })
+
         .catch(error => {
             let errorMessage = 'Player stats unavailable at this time.'
             return errorMessage
