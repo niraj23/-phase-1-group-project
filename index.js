@@ -20,6 +20,7 @@ function teamSelectBttnEvent() {
         deletePlayers()
     })
 }
+
 // function favoritePlayerBttnEvent() {
 //     const favoritePlayerBttn = document.getElementById('team-page-return')
 //     const teamContainer = document.getElementById('team-container')
@@ -164,43 +165,6 @@ const playerCreators = (players,teamImgObj) => {
     })
 }
 
-
-//Function to return image src from db.json
-//takes a player name and team id
-//needs an array of objects made from a call to db.json
-const getPlayerImage = (teamId,playerName) => {
-    let playerImgPaths = playerImages(teamId)
-    playerImgPaths.then(players => {
-        //NEED TO DETERMINE HOW IMG ELEMENTS ARE BEING CREATED SO WE CAN CATCH THEM HERE AND SET IMAGE SOURCE
-        const playerImgElement =  document.getElementById(`Img-${playerName}`)
-        playerImgElement.src = players[playerName]
-        playerImgElement.alt = `${playerName} Headshot`
-        playerImgElement.title = `${playerName}`
-    })
-}
-
-//Returns promise of object of selected team
-const getTeam = (teamId) => {
-    return fetch('http://localhost:3000/teams')
-        .then(resp => resp.json())
-        .then(teams => teams.find((el) => el.id === teamId))
-    }
-
-//Returns promise of object with list of player image paths 
-const playerImages = (teamId) => {
-    return getTeam(teamId).then(response => {
-        console.trace(response)
-        const playerImgs = {}
-        response.players.forEach(el => {
-            const playerName = el.espn_player_name
-            const playerImg = el.player_image
-            playerImgs[playerName] = playerImg
-        })
-        console.log(playerImgs)
-        return playerImgs
-        })
-}
-
 //------------------------------------------------------------------------------------------
 const parsePlayerStats = (player) => {
     let playerName = player.person.fullName;
@@ -270,6 +234,41 @@ const createPlayerCard = (playerObject, playerName, playerPosition, id) => {
         <li>Games: ${playerObject.games}</li>
     </ul>`;
     return statsList;
+};
+//Function to return image src from db.json
+//takes a player name and team id
+//needs an array of objects made from a call to db.json
+const getPlayerImage = (teamId,playerName) => {
+    let playerImgPaths = playerImages(teamId)
+    playerImgPaths.then(players => {
+        //NEED TO DETERMINE HOW IMG ELEMENTS ARE BEING CREATED SO WE CAN CATCH THEM HERE AND SET IMAGE SOURCE
+        const playerImgElement =  document.getElementById(`Img-${playerName}`)
+        playerImgElement.src = players[playerName]
+        playerImgElement.alt = `${playerName} Headshot`
+        playerImgElement.title = `${playerName}`
+    })
+}
+
+//Returns promise of object of selected team
+const getTeam = (teamId) => {
+    return fetch('http://localhost:3000/teams')
+        .then(resp => resp.json())
+        .then(teams => teams.find((el) => el.id === teamId))
+    }
+
+//Returns promise of object with list of player image paths 
+const playerImages = (teamId) => {
+    return getTeam(teamId).then(response => {
+        console.trace(response)
+        const playerImgs = {}
+        response.players.forEach(el => {
+            const playerName = el.espn_player_name
+            const playerImg = el.player_image
+            playerImgs[playerName] = playerImg
+        })
+        console.log(playerImgs)
+        return playerImgs
+        })
 }
 
 // playerImages(12)

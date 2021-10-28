@@ -4,24 +4,35 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NHL Team Stats</title>
-    <script src = "./index.js" defer></script>
+    <script defer src = "./index.js"></script>
     <link rel="stylesheet" href="./style.css">
 </head>
 <body>
-    <h1>NHL Team Stats</h1>
-    <div class="test">
-        hello
-        <div>Tampa Bay Lightning</div>
-        <div>Victor Hedman</div>
+    <div id="site-head">
+        <h1>NHL Team Stats</h1>
+        <button type="button" id="team-page-return">Team Selection</button>
+        <button type="button" id="favorites-page">Favorite Players</button>
     </div>
 
     <div id="team-container"></div>
+    <div id="favorite-container"></div>
     <div id="player-container">
-        <div id="offense"></div>
-        <div id="defense"></div>
-        <div id="goalies"></div>
-        <div id="coaches"></div>
-        <p>this is a test</p>
+        
+        <div id="offense">
+            <h3>offense</h3>
+        </div>
+        
+        <div id="defense">
+            <h3>defense</h3>
+        </div>
+        
+        <div id="goalies">
+            <h3>goalies</h3>
+        </div>
+        
+        <div id="coaches">
+            <h3>coaches</h3>
+        </div>
     </div>
     <div id="favorite-players"></div>
 </body>
