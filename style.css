@@ -1,46 +1,58 @@
 @media (prefers-color-scheme: dark){
-     body {background: #333; color: #fff; }
+    body {background: #333; color: #fff; }
     .team-card{background:rgb(110, 110, 110)}
-    .player-card{}
-}
-@media (prefers-color-scheme: light){
+    .card-header h2 {color: #fff}
+    .card__face--front{background: rgb(110, 110, 110)}
+    .card__face--back{background: rgb(110, 110, 110)}
+    .home-buttons {background: rgb(110, 110, 110); color: #fff}
+    }
+  @media (prefers-color-scheme: light){
     body {background: rgb(220, 220, 220); color: black ;}
     .team-card{background:rgb(237, 237, 237)}
-    .player-card{}
-}
-/* --------------styles for site header-------------- */
-#site-head{
+    .card-header h2 {color: #333}
+    .card__face--front{background: rgb(237, 237, 237)}
+    .card__face--back{background: rgb(237, 237, 237); color: #333}
+    .card__face--back table {color: #333}
+    .home-buttons {background:rgb(237, 237, 237); color: #333}
+    }
+    /* --------------styles for site header-------------- */
+    #site-head{
     display: flex;
     justify-content: left;
     flex-wrap: wrap;
-}
-.home-buttons{
-  margin: 10px;
-  position: center;
-  color: #455d8a !important;
-  text-transform: uppercase;
-  text-decoration: none;
-  background: #333;
-  padding: 15px;
-  border: 2px solid #494949 !important;
-  display: inline-block;
-  transition: all 0.4s ease 0s;
-}
-.home-buttons:hover {
-  cursor:pointer;
-  color: #ffffff !important;
-  background: #c9320c;
-  border-color: #c9320c !important;
-  transition: all 0.4s ease 0s;
+    }
+    .home-buttons{
+    margin: 10px;
+    position: center;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 15px;
+    border: 2px solid #494949 !important;
+    border-radius: 10px;
+    display: inline-block;
+    transition: all 0.4s ease 0s;
+    }
+    #team-page-return, #offense-button, #defense-button, #goalie-button{
+      display: none
+    }
 
-/* --------------styles for teams-------------- */
-#team-container {
-position: absolute;
-display: flex;
-justify-content: center;
-flex-wrap: wrap;
-}
-.team-card {
+    .home-buttons:hover {
+    cursor:pointer;
+    color: #ffffff !important;
+    background: #c9320c;
+    border-color: #c9320c !important;
+    transition: all 0.4s ease 0s;
+    }
+    
+    /* --------------styles for teams-------------- */
+    #team-container {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    }
+    .team-card {
     border: solid;
     border-radius: 6px;
     padding: 30px;
@@ -54,134 +66,177 @@ flex-wrap: wrap;
     display: flex;
     align-items: center;
     justify-content: center;
-}
-.team-card:hover {
-box-shadow: 0 12px 24px 0 rgba(0, 0, 0, 0.685);
-}
-.team-card:hover img{
-cursor:pointer;
-transition: height 0.5s, width 0.5s;
-height: 170px;
-width: 170px;
-}
-img.team-logo {
-display: block;
-position: absolute;
-height: 150px;
-width: 150px;
-}
-
-/* --------------styles for players-------------- */
-#player-container {
-  position: absolute;
-  display: none;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-
-label {
-  color : rgb(83, 79, 79);
-}
-
-.sports-card-inner {
-  border: solid;
-  transition: 0.3s;
-  margin: 30px;
-  float: left;
-  text-align: center;
-  width: 250px;
-  height: 425px;
-  transition: transform 1s;
-  transform-style: preserve-3d;
-  cursor: pointer;
-  position: relative;
-  perspective: 1000px;
-}
-
-.sports-card-inner:hover {
-  transform: scale(1.1);
-}
-
-.sports-card-inner.is-flipped {
-  transform: rotateY(180deg);
-}
-
-.card__face {
-  position: absolute;
-  width: 250px;
-  height: 425px;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
-  overflow: hidden;
-  border-radius: 16px;
-  box-shadow: 0px 3px 18px 3px rgba(0, 0, 0, 0.2);
-}
-
-.card__face--front {
-background-image: linear-gradient(to bottom right, var(--primary), var(--secondary));
-display: flex;
-align-items: center;
-justify-content: center;
-perspective: 1000px;
-position: absolute;
-}
-
-.card__face--back {
-background-color: var(--light);
-transform: rotateY(180deg);
-}
-
-.card__face--back h4 {
-color: #FFF;
-font-size: 32px;
-}
-
-.card-header {
-position: relative;
-padding: 30px 30px 40px;
-}
-
-.card-header:after {
-content: '';
-display: block;
-position: absolute;
-top: 0;
-left: 0;
-right: 0;
-bottom: 0;
-background-image: linear-gradient(to bottom left, var(--primary) 10%, var(--secondary) 115%);
-z-index: -1;
-border-radius: 0px 0px 50% 0px;
-}
-
-.card-image {
-display: block;
-width: 128px;
-height: 128px;
-margin: 0 auto 30px;
-border-radius: 50%;
-object-fit: cover;
-}
-
-.card-header h2 {
-color: #FFF;
-font-size: 32px;
-font-weight: 900;
-text-transform: uppercase;
-text-align: center;
-}
-.like-bttn {
-color: red;
-font-size: large;
-margin-right: 20px;
-margin-left: 20px;
-margin-bottom: 5px;
-}
-
-.like-bttn:hover {
-cursor: pointer;
-color: white;
-background-color: red;
-}
-
+    }
+    .team-card:hover {
+    box-shadow: 0 12px 24px 0 rgba(0, 0, 0, 0.685);
+    }
+    .team-card:hover img{
+    cursor:pointer;
+    transition: height 0.5s, width 0.5s;
+    height: 170px;
+    width: 170px;
+    }
+    img.team-logo {
+    display: block;
+    position: absolute;
+    height: 150px;
+    width: 150px;
+    }
+    
+    /* --------------styles for players-------------- */
+    #player-container {
+    position: absolute;
+    display: none;
+    justify-content: center;
+    flex-wrap: wrap;
+    }
+    
+    #offense,
+    #defense,
+    #goalies {
+        width: 100%; 
+        height: 100%; 
+        padding-top: 20px
+    }
+    
+    label {
+    color: rgb(83, 79, 79);
+    }
+    
+    .sports-card-inner {
+    border: solid;
+    transition: 0.3s;
+    margin: 30px;
+    float: left;
+    text-align: center;
+    width: 250px;
+    height: 425px;
+    transition: transform 1s;
+    transform-style: preserve-3d;
+    cursor: pointer;
+    position: relative;
+    perspective: 1000px;
+    }
+    
+    .sports-card-inner:hover {
+    transform: scale(1.1);
+    }
+    
+    .sports-card-inner.is-flipped {
+    transform: rotateY(180deg);
+    }
+    
+    .card__face {
+    position: absolute;
+    width: 250px;
+    height: 425px;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    overflow: hidden;
+    border-radius: 16px;
+    box-shadow: 0px 3px 18px 3px rgba(0, 0, 0, 0.2);
+    }
+    
+    .card__face--front {
+    background-image: linear-gradient(to bottom right, var(--primary), var(--secondary));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 1000px;
+    position: absolute;
+    }
+    
+    .card__face--back {
+    transform: rotateY(180deg);
+    vertical-align: middle;
+    }
+    
+    .card__face--back h3 {
+    font-size: 32px;
+    padding: 5px;
+    }
+  
+    .card__face--back h4 {
+      font-size: 24px;
+    }
+  
+    .card__face--back h5 {
+      font-size: 20px;
+      margin-bottom: 5px;
+      text-decoration: underline;
+    }
+  
+    .card__face--back table {
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 30px;
+      font-size: 18px;
+    }
+    
+    .stat-value {
+      text-align: right;
+      padding-left: 20px;
+    }
+  
+    .back-info {
+      padding: 10px;
+      font-size: 24px;
+  
+    }
+  
+    .card-header {
+    position: relative;
+    padding: 30px 30px 40px;
+    }
+    
+    .card-header:after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: linear-gradient(to bottom left, var(--primary) 10%, var(--secondary) 115%);
+    z-index: -1;
+    border-radius: 0px 0px 50% 0px;
+    }
+    
+    .card-image {
+    display: block;
+    width: 128px;
+    height: 128px;
+    margin: 0 auto 30px;
+    border-radius: 50%;
+    object-fit: cover;
+    }
+    
+    .card-header h2 {
+    font-size: 32px;
+    font-weight: 900;
+    text-transform: uppercase;
+    text-align: center;
+    }
+    .like-bttn {
+    color: red;
+    font-size: large;
+    margin-right: 20px;
+    margin-left: 20px;
+    margin-bottom: 5px;
+    }
+    
+    .like-bttn:hover {
+    cursor: pointer;
+    color: white;
+    background-color: red;
+    }
+    .text-header { 
+    color: white; 
+    text-align: 
+    center; 
+    top: -5px; 
+    width: 110px; 
+    left: 52%; 
+    position: absolute; 
+    background: black;
+    }
