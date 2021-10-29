@@ -211,7 +211,7 @@ const displayPlayers = (teamId,teamImgObj,teamColorObj) => {
         })
     }
     const playerCreators = (players,teamImgObj, teamColorObj) => {
-    
+    const playerCreators = (players,teamImgObj) => {    
         const playerContainer = document.getElementById('player-container')
         const offense = document.getElementById('offense')
         const defense = document.getElementById('defense')
@@ -231,15 +231,14 @@ const displayPlayers = (teamId,teamImgObj,teamColorObj) => {
                 cardImage.src = defaultImage
             }else{
             cardImage.src = playerImages[players.person.fullName]
-            }
-        
-        teamColorObj.then(colorTeams => {
-            
+            }        
+        teamColorObj.then(colorTeams => {            
     
         cardFront.className = "card__face card__face--front"
         backInfo.className = "back-info"
         cardBack.className = "card__face card__face--back"
         cardHeader.className = "card-header"
+
         textHeader.className = "text-header"
     
         cardInner.id = `${players.person.id}`
@@ -290,13 +289,13 @@ const displayPlayers = (teamId,teamImgObj,teamColorObj) => {
     
         let position = players.position.code;
     
-    
         cardHeader.append(cardImage, cardName, likeBttn, textHeader)
         cardFront.append(cardHeader)
         cardBack.append(backInfo)
         cardInner.append(cardFront, cardBack)
         
         if (position === 'C' || position === 'R' || position === 'L') {
+
             textHeader.textContent = 'OFFENSE'
             offense.append(cardInner)
             // playerContainer.appendChild(offense)
@@ -306,6 +305,12 @@ const displayPlayers = (teamId,teamImgObj,teamColorObj) => {
             // playerContainer.appendChild(defense)
         }else{
             textHeader.textContent = 'GOALIES'
+//             offense.append(cardInner)
+//             // playerContainer.appendChild(offense)
+//         }else if(position === 'D'){
+//             defense.append(cardInner)
+//             // playerContainer.appendChild(defense)
+//         }else{
             goalie.append(cardInner)
             // playerContainer.appendChild(goalie)
         }
@@ -315,15 +320,11 @@ const displayPlayers = (teamId,teamImgObj,teamColorObj) => {
         defense.style.display = 'inline-block'
         goalie.style.display = 'inline-block'
     
-        cardInner.addEventListener("dblclick", function (e) {
-            if(e.target.id === "like-bttn"){
-            return;
-        }else{
+        cardInner.addEventListener("dblclick", function () {
             cardInner.classList.toggle('is-flipped')
-        }
         })
     })
-})
+    })
     }
     
     
@@ -340,20 +341,23 @@ const getTeam = (teamId) => {
 
 //Returns promise of object with list of player image paths 
 
-const playerImages = async () => {
-    const response = await getTeams()
-    const playerImgs = {}
-    response.forEach(team => {
-        const players = team.players || []
-        players.forEach(player => {
-            const playerName = player.espn_player_name
-            const playerImg = player.player_image
-            playerImgs[playerName] = playerImg
 
-        })
+const playerImages = () => {
+    return getTeams().then(response => {
+        const playerImgs = {}
+        response.forEach(team => {
+            const players = team.players || []
+            players.forEach(player => {
+                const playerName = player.espn_player_name
+                const playerImg = player.player_image
+                playerImgs[playerName] = playerImg
+                // playerImgs['primary'] = player.primary
+                // playerImgs['secondary'] = player.secondary
+            })
         // console.log(playerImgs)
-    })
+        })
     return playerImgs
+    })
 }
 
 const colorTeams = async (teamId) => {
@@ -365,6 +369,7 @@ const colorTeams = async (teamId) => {
     })
     return playerColors
 }
+
     const parsePlayerStats = (player) => {
         let playerName = player.person.fullName;
         let id = player.person.id;
