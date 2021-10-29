@@ -30,6 +30,7 @@ function teamSelectBttnEvent() {
     const teamContainer = document.getElementById('team-container')
     const playerContainer = document.getElementById('player-container')
     const favoriteContainer = document.getElementById('favorite-container')
+    const favoritesBttn = document.getElementById('favorites-page')
 
     const offense = document.getElementById('offense')
     const defense = document.getElementById('defense')
@@ -46,6 +47,7 @@ function teamSelectBttnEvent() {
         offenseSelectBttn.style.display = "none"
         defenseSelectBttn.style.display = "none"
         goalieSelectBttn.style.display = "none"
+        favoritesBttn.style.display = "inline-block"
 
         deletePlayers()
         makeTeamTiles(teamObj)
@@ -106,6 +108,7 @@ function favoritesButton() {
     const favoritesBttn = document.getElementById('favorites-page')
     const teamSelectBttn = document.getElementById('team-page-return')
     favoritesBttn.addEventListener('click', () => {
+        buildFavorites()
         teamContainer.style.display = "none"
         offense.style.display = "none"
         defense.style.display = "none"
@@ -116,13 +119,16 @@ function favoritesButton() {
         deletePlayers()
         favorite.style.display = "flex"
         teamSelectBttn.style.display = "block"
+        favoritesBttn.style.display = "none"
     
     })
 }
 
 //Delete function to remove player cards from DOM
 const deletePlayers = () => {
-    const allPlayers = document.querySelectorAll('div.position-lineup > div.sports-card-inner')
+    // const allPlayers = document.querySelectorAll('div.position-lineup > div.sports-card-inner')
+    const allPlayers = document.querySelectorAll('.sports-card-inner')
+
     allPlayers.forEach(el => el.remove())
 }
 
@@ -264,7 +270,13 @@ const displayPlayers = (teamId,teamImgObj) => {
             const favoriteContainer = document.getElementById('favorite-container')
             let clonedDiv = cardInner.cloneNode(true);  
             favoriteContainer.append(clonedDiv)
-            e.preventDefault();
+
+            let favoritePlayerId = parseInt(e.target.parentNode.parentNode.parentNode.id);
+            let favoritePlayerCard = e.target.parentNode.parentNode.parentNode.innerHTML;
+            // let favoritePlayerCardBack = e.target.parentNode.parentNode.nextSibling.innerHTML;
+            
+            addFavorite(favoritePlayerId,favoritePlayerCard,/*favoritePlayerCardBack*/)
+            // e.preventDefault(playerId);
         })
 
         parsePlayerStats(players).then(data => {
@@ -329,7 +341,6 @@ const playerImages = () => {
     return getTeams().then(response => {
         const playerImgs = {}
         response.forEach(team => {
-            console.log(team)
             const players = team.players || []
             players.forEach(player => {
                 const playerName = player.espn_player_name
@@ -446,8 +457,50 @@ const playerImages = () => {
         </table>`;
         return statsList;
     }
-    // playerImages(12)
-    
+
+//Favorite PLayers Persistence
+//Add posting functionality when favorited
+//Add fetch call to populate faovrites page when selected.
+
+const addFavorite = (playerId,cardFront,/*cardBack*/) => {
+    //making post
+    const favoritePlayer = {
+        "id" : playerId,
+        "card" : cardFront,
+        //"cardBack" : cardBack
+    }
+    fetch('http://localhost:3000/favorites', {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json'
+        },
+        body: JSON.stringify(favoritePlayer)
+    })  
+}
+
+function buildFavorites(){
+    const favoritesContainer = document.getElementById('favorite-container')
+    getFavorites()
+    .then(favorites => favorites.forEach(player => {
+
+        //Need to create div of class "sports-card-inner" and id of <json obj id>
+        let cardElement = document.createElement('div')
+        cardElement.id = player.id
+        cardElement.className = 'sports-card-inner'
+        cardElement.style.borderRadius = "20px"
+        cardElement.style.boxShadow = "none";
+        //set innerHTML to resp.cardFront
+        cardElement.innerHTML = player.card
+
+        favoritesContainer.appendChild(cardElement)
+
+        }))
+}
+
+const getFavorites = () => {
+    return fetch('http://localhost:3000/favorites')
+    .then(resp => resp.json())
+}
     init();
     
     
