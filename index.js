@@ -187,9 +187,15 @@ const makeTeamTiles = teamObj => {
         //display playerscontainer
         playerContainer.style.display = "flex"
         //retrieve player images
-        const teamIdInt = parseInt(e.target.parentNode.id,10)
+        const parentId = parseInt(e.target.parentNode.id,10)
+        const childId = parseInt(e.target.id,10)
+        const teamIdInt = childId || parentId;
         const teamPull = playerImages(teamIdInt)
         const teamColorPull = colorTeams(teamIdInt)
+
+        // const teamIdInt = parseInt(e.target.parentNode.id,10)
+        // const teamPull = playerImages(teamIdInt)
+        // const teamColorPull = colorTeams(teamIdInt)
         
         // console.log(playerImages(e.target.parentNode.id))
         //build player cards
