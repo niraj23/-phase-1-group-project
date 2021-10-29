@@ -189,9 +189,11 @@ const makeTeamTiles = teamObj => {
         //retrieve player images
         const teamIdInt = parseInt(e.target.parentNode.id,10)
         const teamPull = playerImages(teamIdInt)
+        const teamColorPull = colorTeams(teamIdInt)
+        
         // console.log(playerImages(e.target.parentNode.id))
         //build player cards
-        displayPlayers(teamIdInt,teamPull)
+        displayPlayers(teamIdInt,teamPull, teamColorPull)
 
     })
 }
@@ -199,17 +201,17 @@ const makeTeamTiles = teamObj => {
 // Set this as default for now
 let defaultImage = 'https://a.espncdn.com/combiner/i?img=/i/headshots/nophoto.png&w=200&h=146'
 
-const displayPlayers = (teamId,teamImgObj) => {
+const displayPlayers = (teamId,teamImgObj,teamColorObj) => {
         let teamRoster = `https://statsapi.web.nhl.com/api/v1/teams/${teamId}/roster`;
         fetch(teamRoster)
         .then(resp => resp.json())
         .then(roster => {
             let rosterArray = roster.roster;
-            rosterArray.forEach(player => playerCreators(player,teamImgObj))
+            rosterArray.forEach(player => playerCreators(player,teamImgObj,teamColorObj))
         })
     }
-    const playerCreators = (players,teamImgObj) => {
-    
+    const playerCreators = (players,teamImgObj, teamColorObj) => {
+    const playerCreators = (players,teamImgObj) => {    
         const playerContainer = document.getElementById('player-container')
         const offense = document.getElementById('offense')
         const defense = document.getElementById('defense')
@@ -222,29 +224,31 @@ const displayPlayers = (teamId,teamImgObj) => {
         const cardName = document.createElement("h2")
         const likeBttn = document.createElement("button")
         const cardHeader = document.createElement('div')
+        const textHeader = document.createElement('div')
     
         teamImgObj.then(playerImages => {
             if(playerImages[players.person.fullName] === undefined){
                 cardImage.src = defaultImage
             }else{
             cardImage.src = playerImages[players.person.fullName]
-            }
-            
-            
+            }        
+        teamColorObj.then(colorTeams => {            
     
         cardFront.className = "card__face card__face--front"
         backInfo.className = "back-info"
         cardBack.className = "card__face card__face--back"
         cardHeader.className = "card-header"
+
+        textHeader.className = "text-header"
     
         cardInner.id = `${players.person.id}`
         cardInner.className = "sports-card-inner"
-        cardInner.style.borderColor = playerImages['primary'];
+        cardInner.style.borderColor = colorTeams['primary'];
         cardInner.style.borderRadius = '20px';
 
     
         cardInner.onmouseover = function () {
-            var colorString = '0px 8px 16px 0px ' + playerImages['secondary'];
+            var colorString = '0px 8px 16px 0px ' + colorTeams['secondary'];
             this.style['box-shadow'] = colorString
             this.style['-webkit-box-shadow'] = colorString
             this.style['-moz-box-shadow'] = colorString
@@ -259,8 +263,8 @@ const displayPlayers = (teamId,teamImgObj) => {
         
         // cardImage.src = teamImgObj.players[fullName]
         cardImage.className = 'card-image'
-        cardImage.style.backgroundColor = playerImages['primary'];
-        cardImage.style.border = '5px solid' + playerImages['secondary'];
+        cardImage.style.backgroundColor = colorTeams['primary'];
+        cardImage.style.border = '5px solid' + colorTeams['secondary'];
         cardName.textContent = players.person.fullName
     
         likeBttn.className = "like-bttn"
@@ -285,19 +289,28 @@ const displayPlayers = (teamId,teamImgObj) => {
     
         let position = players.position.code;
     
-    
-        cardHeader.append(cardImage, cardName, likeBttn)
+        cardHeader.append(cardImage, cardName, likeBttn, textHeader)
         cardFront.append(cardHeader)
         cardBack.append(backInfo)
         cardInner.append(cardFront, cardBack)
         
         if (position === 'C' || position === 'R' || position === 'L') {
+
+            textHeader.textContent = 'OFFENSE'
             offense.append(cardInner)
             // playerContainer.appendChild(offense)
         }else if(position === 'D'){
+            textHeader.textContent = 'DEFENSE'
             defense.append(cardInner)
             // playerContainer.appendChild(defense)
         }else{
+            textHeader.textContent = 'GOALIES'
+//             offense.append(cardInner)
+//             // playerContainer.appendChild(offense)
+//         }else if(position === 'D'){
+//             defense.append(cardInner)
+//             // playerContainer.appendChild(defense)
+//         }else{
             goalie.append(cardInner)
             // playerContainer.appendChild(goalie)
         }
@@ -307,9 +320,10 @@ const displayPlayers = (teamId,teamImgObj) => {
         defense.style.display = 'inline-block'
         goalie.style.display = 'inline-block'
     
-        cardInner.addEventListener("click", function () {
+        cardInner.addEventListener("dblclick", function () {
             cardInner.classList.toggle('is-flipped')
         })
+    })
     })
     }
     
@@ -317,16 +331,6 @@ const displayPlayers = (teamId,teamImgObj) => {
 //Function to return image src from db.json
 //takes a player name and team id
 //needs an array of objects made from a call to db.json
-const getPlayerImage = (teamId,playerName) => {
-    let playerImgPaths = playerImages(teamId)
-    playerImgPaths.then(players => {
-        //NEED TO DETERMINE HOW IMG ELEMENTS ARE BEING CREATED SO WE CAN CATCH THEM HERE AND SET IMAGE SOURCE
-        const playerImgElement =  document.getElementById(`Img-${playerName}`)
-        playerImgElement.src = players[playerName]
-        playerImgElement.alt = `${playerName} Headshot`
-        playerImgElement.title = `${playerName}`
-    })
-}
 
 //Returns promise of object of selected team
 const getTeam = (teamId) => {
@@ -336,6 +340,7 @@ const getTeam = (teamId) => {
     }
 
 //Returns promise of object with list of player image paths 
+
 
 const playerImages = () => {
     return getTeams().then(response => {
@@ -354,6 +359,17 @@ const playerImages = () => {
     return playerImgs
     })
 }
+
+const colorTeams = async (teamId) => {
+    const response = await getTeam(teamId)
+    const playerColors = {}
+    response.players.forEach(el => {
+        playerColors['primary'] = el.primary
+        playerColors['secondary'] = el.secondary
+    })
+    return playerColors
+}
+
     const parsePlayerStats = (player) => {
         let playerName = player.person.fullName;
         let id = player.person.id;
@@ -518,5 +534,3 @@ const getFavorites = () => {
     .then(resp => resp.json())
 }
     init();
-    
-    
