@@ -492,7 +492,23 @@ function buildFavorites(){
         //set innerHTML to resp.cardFront
         cardElement.innerHTML = player.card
 
+        let deleteBttn = cardElement.querySelector('button.like-bttn')
+        deleteBttn.innerText = "X"
+        deleteBttn.addEventListener('click', (e) => {
+            let deleteId = cardElement.id
+            e.target.parentNode.parentNode.parentNode.remove();
+            fetch(`http://localhost:3000/favorites/${deleteId}`, {
+                method: 'DELETE',
+                    headers: {
+                        'Content-type': 'application/json'
+                }
+            })
+        }),
         favoritesContainer.appendChild(cardElement)
+
+        cardElement.addEventListener("click", function () {
+            cardElement.classList.toggle('is-flipped')
+        })
 
         }))
 }
