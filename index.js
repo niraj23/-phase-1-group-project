@@ -50,7 +50,7 @@ function teamSelectBttnEvent() {
         favoritesBttn.style.display = "inline-block"
 
         deletePlayers()
-        makeTeamTiles(teamObj)
+        makeTeamTiles()
     })
 }
 
@@ -211,7 +211,6 @@ const displayPlayers = (teamId,teamImgObj,teamColorObj) => {
         })
     }
     const playerCreators = (players,teamImgObj, teamColorObj) => {
-    const playerCreators = (players,teamImgObj) => {    
         const playerContainer = document.getElementById('player-container')
         const offense = document.getElementById('offense')
         const defense = document.getElementById('defense')
@@ -298,21 +297,12 @@ const displayPlayers = (teamId,teamImgObj,teamColorObj) => {
 
             textHeader.textContent = 'OFFENSE'
             offense.append(cardInner)
-            // playerContainer.appendChild(offense)
         }else if(position === 'D'){
             textHeader.textContent = 'DEFENSE'
             defense.append(cardInner)
-            // playerContainer.appendChild(defense)
         }else{
             textHeader.textContent = 'GOALIES'
-//             offense.append(cardInner)
-//             // playerContainer.appendChild(offense)
-//         }else if(position === 'D'){
-//             defense.append(cardInner)
-//             // playerContainer.appendChild(defense)
-//         }else{
             goalie.append(cardInner)
-            // playerContainer.appendChild(goalie)
         }
     
 
@@ -363,10 +353,8 @@ const playerImages = () => {
 const colorTeams = async (teamId) => {
     const response = await getTeam(teamId)
     const playerColors = {}
-    response.players.forEach(el => {
-        playerColors['primary'] = el.primary
-        playerColors['secondary'] = el.secondary
-    })
+    playerColors['primary'] = response.colors.primary
+    playerColors['secondary'] = response.colors.secondary
     return playerColors
 }
 
@@ -533,4 +521,4 @@ const getFavorites = () => {
     return fetch('http://localhost:3000/favorites')
     .then(resp => resp.json())
 }
-    init();
+    init()
