@@ -18,7 +18,7 @@ defense.style.display = "none"
 goalie.style.display = "none"
 
 const getTeams = () => {
-    return fetch('http://localhost:3000/teams').then(resp => resp.json())
+    return fetch('https://hockey-team-server.herokuapp.com/teams').then(resp => resp.json())
 }
 
 //set up button functionality
@@ -330,7 +330,7 @@ const displayPlayers = (teamId,teamImgObj,teamColorObj) => {
 
 //Returns promise of object of selected team
 const getTeam = (teamId) => {
-    return fetch('http://localhost:3000/teams')
+    return fetch('https://hockey-team-server.herokuapp.com/teams')
         .then(resp => resp.json())
         .then(teams => teams.find((el) => el.id === teamId))
     }
@@ -479,7 +479,7 @@ const addFavorite = (playerId,cardFront,/*cardBack*/) => {
         "card" : cardFront,
         //"cardBack" : cardBack
     }
-    fetch('http://localhost:3000/favorites', {
+    fetch('https://hockey-team-server.herokuapp.com/favorites', {
         method: 'POST',
         headers: {
             'Content-type': 'application/json'
@@ -507,7 +507,7 @@ function buildFavorites(){
         deleteBttn.addEventListener('click', (e) => {
             let deleteId = cardElement.id
             e.target.parentNode.parentNode.parentNode.remove();
-            fetch(`http://localhost:3000/favorites/${deleteId}`, {
+            fetch(`https://hockey-team-server.herokuapp.com/favorites/${deleteId}`, {
                 method: 'DELETE',
                     headers: {
                         'Content-type': 'application/json'
@@ -524,7 +524,7 @@ function buildFavorites(){
 }
 
 const getFavorites = () => {
-    return fetch('http://localhost:3000/favorites')
+    return fetch('https://hockey-team-server.herokuapp.com/favorites')
     .then(resp => resp.json())
 }
     init()
